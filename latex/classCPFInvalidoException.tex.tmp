@@ -1,0 +1,33 @@
+\hypertarget{classCPFInvalidoException}{}\doxysection{CPFInvalido\+Exception Class Reference}
+\label{classCPFInvalidoException}\index{CPFInvalidoException@{CPFInvalidoException}}
+
+
+Classe que representa uma exceção da validação de cpf.  
+
+
+
+
+{\ttfamily \#include $<$Usuario\+Cliente.\+hpp$>$}
+
+
+
+Inheritance diagram for CPFInvalido\+Exception\+:
+% FIG 0
+
+
+Collaboration diagram for CPFInvalido\+Exception\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classCPFInvalidoException_a6d01f7f3568d4ca6332ea5d80c3c6ad5}\label{classCPFInvalidoException_a6d01f7f3568d4ca6332ea5d80c3c6ad5}} 
+virtual const char $\ast$ {\bfseries what} () const  throw ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe que representa uma exceção da validação de cpf. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Usuario\+Cliente.\+hpp\end{DoxyCompactItemize}

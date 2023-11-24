@@ -1,0 +1,163 @@
+\hypertarget{classUsuarioCliente}{}\doxysection{Usuario\+Cliente Class Reference}
+\label{classUsuarioCliente}\index{UsuarioCliente@{UsuarioCliente}}
+
+
+Classe que representa os usuários do sistema.  
+
+
+
+
+{\ttfamily \#include $<$Usuario\+Cliente.\+hpp$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classUsuarioCliente_a9b973cec64cc0485ae0ae5a2438e5ea4}{Usuario\+Cliente}} (const std\+::string \&nome, const std\+::string \&email, const std\+::string \&cpf, const std\+::string \&senha)
+\begin{DoxyCompactList}\small\item\em Construtor para preencher todos os dados do usuário. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classUsuarioCliente_adf8c41cbdcf9cfb843db2d3d1d189961}{Usuario\+Cliente}} (const std\+::string \&email, const std\+::string \&senha)
+\begin{DoxyCompactList}\small\item\em Construtor apenas para a realização do login, onde é necessário apenas email e senha. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classUsuarioCliente_a50046c84a07cd89cad053cff88cddca7}{set\+Nome}} (const std\+::string \&nome)
+\begin{DoxyCompactList}\small\item\em Define o nome do usuário. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classUsuarioCliente_a1ebbe0ced797a70ee40e80f1d0aedc47}{set\+Email}} (const std\+::string \&email)
+\begin{DoxyCompactList}\small\item\em Define o email do usuário. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classUsuarioCliente_afbede8a9a8a5c2bcbb66c523d06164a6}{set\+CPF}} (const std\+::string \&cpf)
+\begin{DoxyCompactList}\small\item\em Define o cpf do usuário. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classUsuarioCliente_a179451dbdc3f05aae32e755b013227aa}{set\+Senha}} (const std\+::string \&senha)
+\begin{DoxyCompactList}\small\item\em Define a senha do usuário. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classUsuarioCliente_a5ef6b7e86e5620278b1027e099af0855}{fazer\+\_\+login}} ()
+\begin{DoxyCompactList}\small\item\em Realiza o login do usuário no sistema. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classUsuarioCliente_ad672934e6141deb541b63104e15f3d1d}\label{classUsuarioCliente_ad672934e6141deb541b63104e15f3d1d}} 
+void \mbox{\hyperlink{classUsuarioCliente_ad672934e6141deb541b63104e15f3d1d}{cadastrar}} ()
+\begin{DoxyCompactList}\small\item\em Cadastra o usuário no sistema. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Classe que representa os usuários do sistema. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classUsuarioCliente_a9b973cec64cc0485ae0ae5a2438e5ea4}\label{classUsuarioCliente_a9b973cec64cc0485ae0ae5a2438e5ea4}} 
+\index{UsuarioCliente@{UsuarioCliente}!UsuarioCliente@{UsuarioCliente}}
+\index{UsuarioCliente@{UsuarioCliente}!UsuarioCliente@{UsuarioCliente}}
+\doxysubsubsection{\texorpdfstring{UsuarioCliente()}{UsuarioCliente()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Usuario\+Cliente\+::\+Usuario\+Cliente (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{nome,  }\item[{const std\+::string \&}]{email,  }\item[{const std\+::string \&}]{cpf,  }\item[{const std\+::string \&}]{senha }\end{DoxyParamCaption})}
+
+
+
+Construtor para preencher todos os dados do usuário. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nome} & \\
+\hline
+{\em email} & \\
+\hline
+{\em cpf} & \\
+\hline
+{\em senha} & ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classUsuarioCliente_adf8c41cbdcf9cfb843db2d3d1d189961}\label{classUsuarioCliente_adf8c41cbdcf9cfb843db2d3d1d189961}} 
+\index{UsuarioCliente@{UsuarioCliente}!UsuarioCliente@{UsuarioCliente}}
+\index{UsuarioCliente@{UsuarioCliente}!UsuarioCliente@{UsuarioCliente}}
+\doxysubsubsection{\texorpdfstring{UsuarioCliente()}{UsuarioCliente()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Usuario\+Cliente\+::\+Usuario\+Cliente (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{email,  }\item[{const std\+::string \&}]{senha }\end{DoxyParamCaption})}
+
+
+
+Construtor apenas para a realização do login, onde é necessário apenas email e senha. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em email} & \\
+\hline
+{\em senha} & ~\newline
+ \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classUsuarioCliente_a5ef6b7e86e5620278b1027e099af0855}\label{classUsuarioCliente_a5ef6b7e86e5620278b1027e099af0855}} 
+\index{UsuarioCliente@{UsuarioCliente}!fazer\_login@{fazer\_login}}
+\index{fazer\_login@{fazer\_login}!UsuarioCliente@{UsuarioCliente}}
+\doxysubsubsection{\texorpdfstring{fazer\_login()}{fazer\_login()}}
+{\footnotesize\ttfamily bool Usuario\+Cliente\+::fazer\+\_\+login (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Realiza o login do usuário no sistema. 
+
+\begin{DoxyReturn}{Returns}
+bool indicando se o login foi bem-\/sucedido. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classUsuarioCliente_afbede8a9a8a5c2bcbb66c523d06164a6}\label{classUsuarioCliente_afbede8a9a8a5c2bcbb66c523d06164a6}} 
+\index{UsuarioCliente@{UsuarioCliente}!setCPF@{setCPF}}
+\index{setCPF@{setCPF}!UsuarioCliente@{UsuarioCliente}}
+\doxysubsubsection{\texorpdfstring{setCPF()}{setCPF()}}
+{\footnotesize\ttfamily void Usuario\+Cliente\+::set\+CPF (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{cpf }\end{DoxyParamCaption})}
+
+
+
+Define o cpf do usuário. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em cpf} & ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classUsuarioCliente_a1ebbe0ced797a70ee40e80f1d0aedc47}\label{classUsuarioCliente_a1ebbe0ced797a70ee40e80f1d0aedc47}} 
+\index{UsuarioCliente@{UsuarioCliente}!setEmail@{setEmail}}
+\index{setEmail@{setEmail}!UsuarioCliente@{UsuarioCliente}}
+\doxysubsubsection{\texorpdfstring{setEmail()}{setEmail()}}
+{\footnotesize\ttfamily void Usuario\+Cliente\+::set\+Email (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{email }\end{DoxyParamCaption})}
+
+
+
+Define o email do usuário. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em email} & ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classUsuarioCliente_a50046c84a07cd89cad053cff88cddca7}\label{classUsuarioCliente_a50046c84a07cd89cad053cff88cddca7}} 
+\index{UsuarioCliente@{UsuarioCliente}!setNome@{setNome}}
+\index{setNome@{setNome}!UsuarioCliente@{UsuarioCliente}}
+\doxysubsubsection{\texorpdfstring{setNome()}{setNome()}}
+{\footnotesize\ttfamily void Usuario\+Cliente\+::set\+Nome (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{nome }\end{DoxyParamCaption})}
+
+
+
+Define o nome do usuário. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em nome} & ~\newline
+ \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classUsuarioCliente_a179451dbdc3f05aae32e755b013227aa}\label{classUsuarioCliente_a179451dbdc3f05aae32e755b013227aa}} 
+\index{UsuarioCliente@{UsuarioCliente}!setSenha@{setSenha}}
+\index{setSenha@{setSenha}!UsuarioCliente@{UsuarioCliente}}
+\doxysubsubsection{\texorpdfstring{setSenha()}{setSenha()}}
+{\footnotesize\ttfamily void Usuario\+Cliente\+::set\+Senha (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{senha }\end{DoxyParamCaption})}
+
+
+
+Define a senha do usuário. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em senha} & ~\newline
+ \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Usuario\+Cliente.\+hpp\item 
+Usuario\+Cliente.\+cpp\end{DoxyCompactItemize}
