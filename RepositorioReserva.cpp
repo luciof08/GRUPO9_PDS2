@@ -114,3 +114,40 @@ void RepositorioReserva::incluir(const Reserva& reserva) {
         throw std::runtime_error(e.what());
     }
 }
+
+bool RepositorioReserva::estaDisponivel(const Reserva& reserva) {
+    try {
+        pqxx::connection conn("dbname=" + conexao.getDBName() + " user=" + conexao.getUser() + " password=" + conexao.getPassword() + " host=" + conexao.getHost());
+        if (conn.is_open()) {
+            pqxx::work txn(conn);
+
+            // Formatando as datas do objeto Reserva para o formato 'YYYY-MM-DD'
+            std::time_t timeDataInicio = std::chrono::system_clock::to_time_t(reserva.getDataInicio());
+            std::time_t timeDataFim = std::chrono::system_clock::to_time_t(reserva.getDataFim());
+
+            std::tm tmDataInicio = *std::localtime(&timeDataInicio);
+            std::tm tmDataFim = *std::localtime(&timeDataFim);
+
+            char dataInicioStr[11];
+            char dataFimStr[11];
+
+            std::strftime(dataInicioStr, sizeof(dataInicioStr), "%Y-%m-%d", &tmDataInicio);
+            std::strftime(dataFimStr, sizeof(dataFimStr), "%Y-%m-%d", &tmDataFim);
+
+            // Consulta SQL para verificar se há alguma sobreposição de datas na tabela 'reserva'
+            std::string query = "SELECT COUNT(*) FROM reserva WHERE (data_inicio <= " + txn.quote(dataFimStr) + ") AND (data_fim >= " + txn.quote(dataInicioStr) + ")";
+
+            pqxx::result result = txn.exec(query);
+            int count = result[0][0].as<int>();
+
+            txn.commit();
+
+            return count == 0; // Se count for zero, as datas estão disponíveis
+        } else {
+            throw std::runtime_error("Erro ao conectar ao banco de dados.");
+        }
+    } catch (const std::exception& e) {
+        std::cerr << "Erro ao verificar disponibilidade: " << e.what() << std::endl;
+        return false;
+    }
+}

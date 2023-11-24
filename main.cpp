@@ -204,11 +204,17 @@ int main() {
                                     }
                                     size_t pos; 
                                     int id_quarto = std::stoi(id_quarto_escolhido, &pos);
-                                    Quarto quarto(id_quarto);
-                                    Reserva reserva(quarto, dataInicio, dataFinal, *usuarioLogado);
+
+                                    Reserva reserva(Quarto(id_quarto), dataInicio, dataFinal, *usuarioLogado);
+
                                     RepositorioReserva repositorioReserva;
-                                    repositorioReserva.incluir(reserva);
-                                    std::cout << "Reserva efetuada com sucesso!!" << std::endl;
+
+                                    if (repositorioReserva.estaDisponivel(reserva)) {
+                                        repositorioReserva.incluir(reserva);
+                                        std::cout << "Reserva efetuada com sucesso!!" << std::endl;
+                                    } else {
+                                        std::cout << "Quarto já reservado no período! Escolha outra data!" << std::endl;    
+                                    }
                                 } else if (opcao_escolhida_usuario == "0") {
                                     break;
                                 } else {
