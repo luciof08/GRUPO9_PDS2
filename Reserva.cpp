@@ -37,24 +37,3 @@ std::chrono::time_point<std::chrono::system_clock> Reserva::getDataFim() const {
 UsuarioCliente Reserva::getUsuario() const {
     return usuario;
 }
-
-// Setters
-void Reserva::setId(int id) {
-    this->id = id;
-}
-
-void Reserva::setQuarto(const Quarto& quarto) {
-    this->quarto = quarto;
-}
-
-void Reserva::setDataInicio(const std::chrono::time_point<std::chrono::system_clock>& dataInicio) {
-    this->dataInicio = dataInicio;
-}
-
-void Reserva::setDataFim(const std::chrono::time_point<std::chrono::system_clock>& dataFim) {
-    this->dataFim = dataFim;
-}
-
-void Reserva::setUsuario(const UsuarioCliente& usuario) {
-    this->usuario = usuario;
-}

@@ -37,12 +37,6 @@ public:
     std::chrono::time_point<std::chrono::system_clock> getDataFim() const;
     UsuarioCliente getUsuario() const;
 
-    // Setters
-    void setId(int id);
-    void setQuarto(const Quarto& quarto);
-    void setDataInicio(const std::chrono::time_point<std::chrono::system_clock>& dataInicio);
-    void setDataFim(const std::chrono::time_point<std::chrono::system_clock>& dataFim);
-    void setUsuario(const UsuarioCliente& usuario);
 };
 
 #endif /* RESERVA_HPP */
