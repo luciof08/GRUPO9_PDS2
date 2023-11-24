@@ -4,6 +4,14 @@
 #include "Quarto.hpp" 
 #include "UsuarioCliente.hpp" 
 #include <chrono>
+#include <stdexcept>
+
+class DataInicioMaiorOuIgualDataFimException : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Erro: A data de início deve ser anterior à data de término da reserva.";
+    }
+};
 
 class Reserva {
 private:
@@ -12,6 +20,8 @@ private:
     std::chrono::time_point<std::chrono::system_clock> dataInicio;
     std::chrono::time_point<std::chrono::system_clock> dataFim;
     UsuarioCliente usuario;
+
+    void validarDataInicioMenorQueDataFim();
 
 public:
     // Construtor

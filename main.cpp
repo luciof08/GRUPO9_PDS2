@@ -152,68 +152,72 @@ int main() {
                     std::unique_ptr<UsuarioCliente> usuarioLogado = realizar_login();
                     if (usuarioLogado != nullptr) {
                         do {
-                            mostrar_menu_usuario_logado();
-                            mostrar_opcao_encerrar();
-                            std::string opcao_escolhida_usuario = escolher_opcao();
-                            if (opcao_escolhida_usuario == "1") {
-                                listar_hoteis();
-                            } else if (opcao_escolhida_usuario == "2") {
-                                listar_reservas(usuarioLogado);
-                            } else if(opcao_escolhida_usuario == "3") {
-                                std::cout << "Informe o ID do Hotel para reserva: ";
-                                std::string id_hotel_escolhido = escolher_opcao();
-                                listar_quartos(id_hotel_escolhido);
-                                std::cout << "Informe o ID do quarto para reserva: ";
-                                std::string id_quarto_escolhido = escolher_opcao(); 
-                                
-                                std::cout << "Digite a data inicial da reserva (formato: DD-MM-YYYY): ";
-                                std::string dataInicioReserva;
-                                std::getline(std::cin, dataInicioReserva);
-                                std::cout << "Digite a data final da reserva (formato: DD-MM-YYYY): ";
-                                std::string dataFinalReserva;
-                                std::getline(std::cin, dataFinalReserva);
-                                
-                                std::istringstream ssInicio(dataInicioReserva);
-                                std::tm tmInicio = {};
-                                ssInicio >> std::get_time(&tmInicio, "%d-%m-%Y");
-                                tmInicio.tm_hour = 0;
-                                tmInicio.tm_min = 0;
-                                tmInicio.tm_sec = 0;
-                                std::chrono::system_clock::time_point dataInicio = std::chrono::system_clock::from_time_t(std::mktime(&tmInicio));
-                                if (ssInicio.fail()) {
-                                    // OBS.: lançar exceção aqui ou fazer verificação quando construir o objeto de Reserva
-                                    std::cout << "Formato inválido!" << std::endl;
+                            try {
+                                mostrar_menu_usuario_logado();
+                                mostrar_opcao_encerrar();
+                                std::string opcao_escolhida_usuario = escolher_opcao();
+                                if (opcao_escolhida_usuario == "1") {
+                                    listar_hoteis();
+                                } else if (opcao_escolhida_usuario == "2") {
+                                    listar_reservas(usuarioLogado);
+                                } else if(opcao_escolhida_usuario == "3") {
+                                    std::cout << "Informe o ID do Hotel para reserva: ";
+                                    std::string id_hotel_escolhido = escolher_opcao();
+                                    listar_quartos(id_hotel_escolhido);
+                                    std::cout << "Informe o ID do quarto para reserva: ";
+                                    std::string id_quarto_escolhido = escolher_opcao(); 
+                                    
+                                    std::cout << "Digite a data inicial da reserva (formato: DD-MM-YYYY): ";
+                                    std::string dataInicioReserva;
+                                    std::getline(std::cin, dataInicioReserva);
+                                    std::cout << "Digite a data final da reserva (formato: DD-MM-YYYY): ";
+                                    std::string dataFinalReserva;
+                                    std::getline(std::cin, dataFinalReserva);
+                                    
+                                    std::istringstream ssInicio(dataInicioReserva);
+                                    std::tm tmInicio = {};
+                                    ssInicio >> std::get_time(&tmInicio, "%d-%m-%Y");
+                                    tmInicio.tm_hour = 0;
+                                    tmInicio.tm_min = 0;
+                                    tmInicio.tm_sec = 0;
+                                    std::chrono::system_clock::time_point dataInicio = std::chrono::system_clock::from_time_t(std::mktime(&tmInicio));
+                                    if (ssInicio.fail()) {
+                                        // OBS.: lançar exceção aqui ou fazer verificação quando construir o objeto de Reserva
+                                        std::cout << "Formato inválido!" << std::endl;
+                                    } else {
+                                        // Utilize 'dataInicio' conforme necessário
+                                        std::cout << "Data lida: " << std::chrono::system_clock::to_time_t(dataInicio) << std::endl;
+                                    }
+                                    std::istringstream ssFinal(dataFinalReserva);
+                                    std::tm tmFinal = {};
+                                    ssFinal >> std::get_time(&tmFinal, "%d-%m-%Y");
+                                    tmFinal.tm_hour = 0;
+                                    tmFinal.tm_min = 0;
+                                    tmFinal.tm_sec = 0;
+                                    std::chrono::system_clock::time_point dataFinal = std::chrono::system_clock::from_time_t(std::mktime(&tmFinal));
+                                    if (ssFinal.fail()) {
+                                        // OBS.: lançar exceção aqui ou fazer verificação quando construir o objeto de Reserva
+                                        std::cout << "Formato inválido!" << std::endl;
+                                    } else {
+                                        // Utilize 'dataInicio' conforme necessário
+                                        std::cout << "Data lida: " << std::chrono::system_clock::to_time_t(dataFinal) << std::endl;
+                                    }
+                                    size_t pos; 
+                                    int id_quarto = std::stoi(id_quarto_escolhido, &pos);
+                                    Quarto quarto(id_quarto);
+                                    Reserva reserva(quarto, dataInicio, dataFinal, *usuarioLogado);
+                                    RepositorioReserva repositorioReserva;
+                                    repositorioReserva.incluir(reserva);
+                                    std::cout << "Reserva efetuada com sucesso!!" << std::endl;
+                                } else if (opcao_escolhida_usuario == "0") {
+                                    break;
                                 } else {
-                                    // Utilize 'dataInicio' conforme necessário
-                                    std::cout << "Data lida: " << std::chrono::system_clock::to_time_t(dataInicio) << std::endl;
+                                    std::cout << "Opção inválida, tente novamente." << std::endl;
+                                    continue;
                                 }
-                                std::istringstream ssFinal(dataFinalReserva);
-                                std::tm tmFinal = {};
-                                ssFinal >> std::get_time(&tmFinal, "%d-%m-%Y");
-                                tmFinal.tm_hour = 0;
-                                tmFinal.tm_min = 0;
-                                tmFinal.tm_sec = 0;
-                                std::chrono::system_clock::time_point dataFinal = std::chrono::system_clock::from_time_t(std::mktime(&tmFinal));
-                                if (ssFinal.fail()) {
-                                    // OBS.: lançar exceção aqui ou fazer verificação quando construir o objeto de Reserva
-                                    std::cout << "Formato inválido!" << std::endl;
-                                } else {
-                                    // Utilize 'dataInicio' conforme necessário
-                                    std::cout << "Data lida: " << std::chrono::system_clock::to_time_t(dataFinal) << std::endl;
-                                }
-                                size_t pos; 
-                                int id_quarto = std::stoi(id_quarto_escolhido, &pos);
-                                Quarto quarto(id_quarto);
-                                Reserva reserva(quarto, dataInicio, dataFinal, *usuarioLogado);
-                                RepositorioReserva repositorioReserva;
-                                repositorioReserva.incluir(reserva);
-                                std::cout << "Reserva efetuada com sucesso!!" << std::endl;
-                            } else if (opcao_escolhida_usuario == "0") {
-                                break;
-                            } else {
-                                std::cout << "Opção inválida, tente novamente." << std::endl;
-                                continue;
-                            }
+                            } catch (std::exception &ex) {
+                               std::cout << "Erro: " << ex.what() << std::endl;
+                            }       
                         } while (true);
                     }
             } else if (opcao_escolhida_inicial == "0") {
