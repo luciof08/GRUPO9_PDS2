@@ -1,6 +1,8 @@
 #include "Reserva.hpp"
 #include <iostream>
 
+const double Reserva::PRECO_DIARIA = 100.0;
+
 // Construtor
 Reserva::Reserva(int id, const Quarto& quarto, const std::chrono::time_point<std::chrono::system_clock>& dataInicio,
         const std::chrono::time_point<std::chrono::system_clock>& dataFim, const UsuarioCliente& usuario)
@@ -36,4 +38,11 @@ std::chrono::time_point<std::chrono::system_clock> Reserva::getDataFim() const {
 
 UsuarioCliente Reserva::getUsuario() const {
     return usuario;
+}
+
+double Reserva::calcularPrecoFinal() const {
+    std::chrono::duration<double> duracao = dataFim - dataInicio;
+    int numDias = static_cast<int>(std::chrono::duration_cast<std::chrono::hours>(duracao).count() / 24); 
+    std::cout << "Dias calculados: " << numDias << std::endl;
+    return PRECO_DIARIA * numDias; 
 }

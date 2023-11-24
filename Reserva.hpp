@@ -20,6 +20,7 @@ private:
     std::chrono::time_point<std::chrono::system_clock> dataInicio;
     std::chrono::time_point<std::chrono::system_clock> dataFim;
     UsuarioCliente usuario;
+    static const double PRECO_DIARIA;
 
     void validarDataInicioMenorQueDataFim();
 
@@ -36,6 +37,8 @@ public:
     std::chrono::time_point<std::chrono::system_clock> getDataInicio() const;
     std::chrono::time_point<std::chrono::system_clock> getDataFim() const;
     UsuarioCliente getUsuario() const;
+
+    double calcularPrecoFinal() const;
 
 };
 

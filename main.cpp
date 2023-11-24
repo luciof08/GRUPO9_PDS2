@@ -210,6 +210,12 @@ int main() {
                                     RepositorioReserva repositorioReserva;
 
                                     if (repositorioReserva.estaDisponivel(reserva)) {
+                                        double precoFinal = reserva.calcularPrecoFinal();
+                                        // Salva o locale atual
+                                        const std::locale oldLocale = std::cout.imbue(std::locale("pt_BR.UTF-8"));
+                                        std::cout << "Valor total da reserva: R$ " << std::fixed << std::setprecision(2) << precoFinal << std::endl;
+                                        // Restaura o locale anterior
+                                        std::cout.imbue(oldLocale);
                                         repositorioReserva.incluir(reserva);
                                         std::cout << "Reserva efetuada com sucesso!!" << std::endl;
                                     } else {
