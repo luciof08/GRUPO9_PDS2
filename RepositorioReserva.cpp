@@ -54,14 +54,13 @@ std::vector<Reserva> RepositorioReserva::listarReservas(const std::unique_ptr<Us
                 std::string cnpjHotel = row["hotel_cnpj"].as<std::string>();
                 Hotel hotel(nomeHotel, "", cnpjHotel, "");
 
-                // Crie um objeto Quarto
-                Quarto quarto(quartoId, quartoNumero, hotel);
-
-                // Crie um objeto UsuarioCliente
-                UsuarioCliente usuarioCliente(usuario->getNome(), usuario->getEmail(), usuario->getCPF(), usuario->getSenha());
-
                 // Crie um objeto Reserva e adicione à lista
-                Reserva reserva(id, quarto, dataInicio, dataFim, usuarioCliente);
+                Reserva reserva(
+                            id, 
+                            Quarto (quartoId, quartoNumero, hotel), 
+                            dataInicio, 
+                            dataFim, 
+                            UsuarioCliente (usuario->getNome(), usuario->getEmail(), usuario->getCPF(), usuario->getSenha()));
                 reservas.push_back(reserva);
             }
 

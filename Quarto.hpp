@@ -19,7 +19,7 @@ public:
 
     Quarto(int id, int numero, Hotel& hotel);
 
-    Quarto(int id, int numero, std::string localizacao, Hotel& hotel);
+    Quarto(int id, int numero, std::string localizacao, const Hotel& hotel);
 
     // Getters
     int getId() const;
