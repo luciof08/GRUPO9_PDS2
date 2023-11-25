@@ -97,10 +97,11 @@ void RepositorioReserva::incluir(const Reserva& reserva) {
             std::strftime(dataFimStr, sizeof(dataFimStr), "%Y-%m-%d", &tmDataFim);
 
             // Montagem da consulta SQL para inserção na tabela 'reserva'
-            std::string query = "INSERT INTO reserva (data_inicio, data_fim, quarto_id, usuario_cliente_id) VALUES ("
+            std::string query = "INSERT INTO reserva (data_inicio, data_fim, quarto_id, forma_pagamento, usuario_cliente_id) VALUES ("
                                 + txn.quote(dataInicioStr) + ", "
                                 + txn.quote(dataFimStr) + ", "
                                 + txn.quote(std::to_string(reserva.getQuarto().getId())) + ", "
+                                + txn.quote(FormaDePagamentoUtil::toString(reserva.getFormaDePagamento())) + ", "
                                 + txn.quote(std::to_string(reserva.getUsuario().getId())) + ")";
 
            txn.exec(query);             

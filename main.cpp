@@ -12,7 +12,6 @@
 #include "RepositorioReserva.hpp"
 #include "RepositorioQuarto.hpp"
 
-
 void cadastrar_usuario() {
     std::string nome, email, cpf, senha;
 
@@ -216,8 +215,26 @@ int main() {
                                         std::cout << "Valor total da reserva: R$ " << std::fixed << std::setprecision(2) << precoFinal << std::endl;
                                         // Restaura o locale anterior
                                         std::cout.imbue(oldLocale);
-                                        repositorioReserva.incluir(reserva);
-                                        std::cout << "Reserva efetuada com sucesso!!" << std::endl;
+
+                                        std::cout << "\nFormas de pagamento:" << std::endl;
+                                        std::cout << FormaDePagamentoUtil::toString(FormaDePagamento::BOLETO)  << " - BOLETO" << std::endl;
+                                        std::cout << FormaDePagamentoUtil::toString(FormaDePagamento::CARTAO_DE_CREDITO)  << " - CARTÃO DE CRÉDITO" << std::endl;
+                                        std::cout << FormaDePagamentoUtil::toString(FormaDePagamento::PIX)  << " - PIX" << std::endl;
+                                        std::cout << FormaDePagamentoUtil::toString(FormaDePagamento::CARTAO_DE_DEBITO)  << " - CARTÃO DE DÉBITO" << std::endl;
+                                        std::cout << "Escolha a forma de pagamento: ";
+                                        std::string opcao_forma_pagamento = escolher_opcao();
+                                        reserva.setFormaDePagamento(FormaDePagamento(std::stoi(opcao_forma_pagamento)));                                        
+
+                                        std::cout << "Deseja confirmar a reserva [S/N]? ";
+                                        std::string opacao_confirma_reserva = escolher_opcao();
+
+                                        if (opacao_confirma_reserva == "S") {
+                                            repositorioReserva.incluir(reserva);
+                                            std::cout << "Reserva efetuada com sucesso!" << std::endl;
+                                        } else {
+                                            std::cout << "Reserva cancelada." << std::endl;
+                                        }
+
                                     } else {
                                         std::cout << "Quarto já reservado no período! Escolha outra data!" << std::endl;    
                                     }

@@ -5,6 +5,7 @@
 #include "Reserva.hpp" 
 #include "UsuarioCliente.hpp" 
 #include "ConexaoBancoDeDados.hpp"
+#include "FormaDePagamentoUtil.hpp"
 
 class RepositorioReserva {
 private:

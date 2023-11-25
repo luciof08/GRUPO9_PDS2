@@ -8,9 +8,9 @@ CXXFLAGS = -Wall -Wextra -std=c++17
 LDFLAGS = -lpqxx -lpq
 
 # Nomes dos arquivos fonte
-SRCS = main.cpp ConexaoBancoDeDados.cpp RepositorioUsuario.cpp UsuarioCliente.cpp Hotel.cpp RepositorioHotel.cpp Quarto.cpp Reserva.cpp RepositorioReserva.cpp RepositorioQuarto.cpp
+SRCS = main.cpp ConexaoBancoDeDados.cpp RepositorioUsuario.cpp UsuarioCliente.cpp Hotel.cpp RepositorioHotel.cpp Quarto.cpp FormaDePagamentoUtil.cpp Reserva.cpp RepositorioReserva.cpp RepositorioQuarto.cpp
 OBJS = $(SRCS:.cpp=.o)
-DEPS = ConexaoBancoDeDados.hpp RepositorioUsuario.hpp UsuarioCliente.hpp Hotel.hpp RepositorioHotel.hpp Quarto.hpp Reserva.hpp RepositorioReserva.hpp RepositorioQuarto.hpp
+DEPS = ConexaoBancoDeDados.hpp RepositorioUsuario.hpp UsuarioCliente.hpp Hotel.hpp RepositorioHotel.hpp Quarto.hpp FormaDePagamento.hpp FormaDePagamentoUtil.hpp Reserva.hpp RepositorioReserva.hpp RepositorioQuarto.hpp
 
 # Arquivos-fonte para os testes
 TEST_SRCS = UsuarioClienteTest.cpp ConexaoBancoDeDados.cpp RepositorioUsuario.cpp UsuarioCliente.cpp  

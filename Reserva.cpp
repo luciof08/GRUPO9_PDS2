@@ -46,3 +46,11 @@ double Reserva::calcularPrecoFinal() const {
     std::cout << "Dias calculados: " << numDias << std::endl;
     return PRECO_DIARIA * numDias; 
 }
+
+void Reserva::setFormaDePagamento(const FormaDePagamento& formaDePagamento) {
+    this->formaDePagamento = formaDePagamento;
+}
+
+FormaDePagamento Reserva::getFormaDePagamento() const {
+    return formaDePagamento;
+}

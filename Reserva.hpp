@@ -3,6 +3,7 @@
 
 #include "Quarto.hpp" 
 #include "UsuarioCliente.hpp" 
+#include "FormaDePagamento.hpp"
 #include <chrono>
 #include <stdexcept>
 
@@ -21,6 +22,7 @@ private:
     std::chrono::time_point<std::chrono::system_clock> dataFim;
     UsuarioCliente usuario;
     static const double PRECO_DIARIA;
+    FormaDePagamento formaDePagamento;
 
     void validarDataInicioMenorQueDataFim();
 
@@ -37,8 +39,10 @@ public:
     std::chrono::time_point<std::chrono::system_clock> getDataInicio() const;
     std::chrono::time_point<std::chrono::system_clock> getDataFim() const;
     UsuarioCliente getUsuario() const;
+    FormaDePagamento getFormaDePagamento() const;
 
     double calcularPrecoFinal() const;
+    void setFormaDePagamento(const FormaDePagamento& formaDePagamento);
 
 };
 
