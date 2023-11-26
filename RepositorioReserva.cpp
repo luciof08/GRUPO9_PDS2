@@ -136,8 +136,14 @@ bool RepositorioReserva::estaDisponivel(const Reserva& reserva) {
             std::strftime(dataFimStr, sizeof(dataFimStr), "%Y-%m-%d", &tmDataFim);
 
             // Consulta SQL para verificar se há alguma sobreposição de datas na tabela 'reserva'
-            std::string query = "SELECT COUNT(*) FROM reserva WHERE (data_inicio <= " + txn.quote(dataFimStr) + ") AND (data_fim >= " + txn.quote(dataInicioStr) + ")";
-
+            std::string query = "SELECT COUNT(*) \
+                                    FROM reserva \
+                                    WHERE \
+                                        quarto_id = " + txn.quote(reserva.getQuarto().getId()) + " AND " 
+                                        + " ((data_inicio <= " + txn.quote(dataInicioStr) + " AND data_fim > " + txn.quote(dataInicioStr) + ") " 
+                                        + " OR "
+                                        + " (data_inicio < " + txn.quote(dataFimStr) + " AND data_fim >= " + txn.quote(dataFimStr) + ") "
+                                        + " OR (data_inicio > " + txn.quote(dataInicioStr) + " AND data_fim < " + txn.quote(dataFimStr) + "))";
             pqxx::result result = txn.exec(query);
             int count = result[0][0].as<int>();
 
