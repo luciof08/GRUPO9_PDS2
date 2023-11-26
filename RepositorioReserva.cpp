@@ -152,3 +152,80 @@ bool RepositorioReserva::estaDisponivel(const Reserva& reserva) {
         return false;
     }
 }
+
+std::vector<Reserva> RepositorioReserva::listarReservasDoQuarto(std::string idQuarto) {
+        std::vector<Reserva> reservas;
+
+    try {
+        pqxx::connection conn("dbname=" + conexao.getDBName() + " user=" + conexao.getUser() + " password=" + conexao.getPassword() + " host=" + conexao.getHost());
+        if (conn.is_open()) {
+            pqxx::work txn(conn);
+
+            std::string query = "SELECT r.id, r.data_inicio, r.data_fim, \
+                                        q.id AS quarto_id, q.numero AS quarto_numero, \
+                                        qc.nome AS usuario_nome, qc.cpf as usuario_cpf, qc.email as usuario_email, \
+                                        h.id AS hotel_id, h.nome AS hotel_nome, h.cnpj as hotel_cnpj \
+                                        FROM reserva r \
+                                            INNER JOIN quarto q ON r.quarto_id = q.id \
+                                            INNER JOIN usuario_cliente qc ON r.usuario_cliente_id = qc.id \
+                                            INNER JOIN hotel h ON q.hotel_id = h.id \
+                                            WHERE q.id = " + txn.quote(idQuarto);
+            
+
+            pqxx::result result = txn.exec(query);
+
+            for (const auto &row : result) {
+                int id = row["id"].as<int>();
+
+                // Conversão de datas
+                std::string dataInicioStr = row["data_inicio"].as<std::string>();
+                std::string dataFimStr = row["data_fim"].as<std::string>();
+                
+                std::tm tmDataInicio = {};
+                std::tm tmDataFim = {};
+                
+                if (strptime(dataInicioStr.c_str(), "%Y-%m-%d", &tmDataInicio) == nullptr ||
+                    strptime(dataFimStr.c_str(), "%Y-%m-%d", &tmDataFim) == nullptr) {
+                    throw std::runtime_error("Erro ao converter datas.");
+                }
+
+                std::time_t timeDataInicio = mktime(&tmDataInicio);
+                std::time_t timeDataFim = mktime(&tmDataFim);
+
+                std::chrono::time_point<std::chrono::system_clock> dataInicio = std::chrono::system_clock::from_time_t(timeDataInicio);
+                std::chrono::time_point<std::chrono::system_clock> dataFim = std::chrono::system_clock::from_time_t(timeDataFim);
+
+                // Obtenha os outros campos necessários
+                int quartoId = row["quarto_id"].as<int>();
+                int quartoNumero = row["quarto_numero"].as<int>();
+
+                std::string nomeUsuario = row["usuario_nome"].as<std::string>();
+                std::string cpfUsuario = row["usuario_cpf"].as<std::string>();
+                std::string emailUsuario = row["usuario_email"].as<std::string>();
+
+                // Crie um objeto hotel
+                std::string nomeHotel = row["hotel_nome"].as<std::string>();
+                std::string cnpjHotel = row["hotel_cnpj"].as<std::string>();
+                Hotel hotel(nomeHotel, "", cnpjHotel, "");
+
+                // Crie um objeto Reserva e adicione à lista
+                Reserva reserva(
+                            id, 
+                            Quarto (quartoId, quartoNumero, hotel), 
+                            dataInicio, 
+                            dataFim, 
+                            UsuarioCliente (nomeUsuario, emailUsuario, cpfUsuario, ""));
+                reservas.push_back(reserva);
+            }
+
+            txn.commit();
+        } else {
+            throw std::runtime_error("Erro ao conectar ao banco de dados.");
+        }
+    } catch (const std::exception &e) {
+        std::cerr << "Erro: " << e.what() << std::endl;
+        throw std::runtime_error(e.what());
+    }
+
+    return reservas;    
+}

@@ -137,6 +137,46 @@ void listar_quartos(std::string idHotel) {
             << std::setw(40) << std::left << quarto.getLocalizacao() << std::endl;
     }
 }
+
+void listar_reservas_do_quarto(std::string idQuarto) {
+
+    RepositorioReserva repositorio;
+    std::vector<Reserva> reservas = repositorio.listarReservasDoQuarto(idQuarto);
+
+    if (reservas.empty()) {
+        std::cout << "\nO quarto selecionado ainda não possui nenhuma reserva." << std::endl;    
+    } else {
+        std::cout << "\nReservas para o quarto de ID " << reservas.front().getQuarto().getId() << ":" <<  std::endl;
+        std::cout << std::setw(30) << std::left << "Hotel"
+              << std::setw(20) << std::left << "Número do quarto"
+              << std::setw(15) << std::left << "Início"
+              << std::setw(15) << std::left << "Fim" << std::endl;
+
+        for (Reserva reserva : reservas) {
+            // Convertendo para std::time_t
+            std::time_t dataInicio = std::chrono::system_clock::to_time_t(reserva.getDataInicio());
+            std::time_t dataFim = std::chrono::system_clock::to_time_t(reserva.getDataFim());
+
+            // Convertendo std::time_t para std::tm (Local Time)
+            std::tm dataInicio_tm = *std::localtime(&dataInicio);
+            std::tm dataFim_tm = *std::localtime(&dataFim);
+
+            // Formatando datas para o formato dd/mm/yyyy
+            std::stringstream dataInicio_ss, dataFim_ss;
+            dataInicio_ss << std::put_time(&dataInicio_tm, "%d/%m/%Y");
+            dataFim_ss << std::put_time(&dataFim_tm, "%d/%m/%Y");
+
+            std::string nomeHotel = reserva.getQuarto().getHotel().getNome();
+            int numeroQuarto = reserva.getQuarto().getNumero();
+
+            std::cout << std::setw(30) << std::left << nomeHotel
+                    << std::setw(20) << std::left << numeroQuarto
+                    << std::setw(15) << std::left << dataInicio_ss.str()
+                    << std::setw(15) << std::left << dataFim_ss.str() << std::endl;
+        }
+    }    
+
+}
  
 int main() {
     
@@ -165,7 +205,7 @@ int main() {
                                     listar_quartos(id_hotel_escolhido);
                                     std::cout << "Informe o ID do quarto para reserva: ";
                                     std::string id_quarto_escolhido = escolher_opcao(); 
-                                    
+                                    listar_reservas_do_quarto(id_quarto_escolhido);
                                     std::cout << "Digite a data inicial da reserva (formato: DD-MM-YYYY): ";
                                     std::string dataInicioReserva;
                                     std::getline(std::cin, dataInicioReserva);
