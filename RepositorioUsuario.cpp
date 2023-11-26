@@ -38,7 +38,6 @@ std::unique_ptr<UsuarioCliente> RepositorioUsuario::fazer_login(const UsuarioCli
                 std::string senha_banco = result[0]["senha"].as<std::string>();
 
                 if (usuario.getSenha() == senha_banco) {
-                    std::cout << "Login bem-sucedido!" << std::endl;
 
                     // Se o login for bem-sucedido, crie um objeto UsuarioCliente com os dados encontrados
                     std::unique_ptr<UsuarioCliente> usuario_encontrado = std::make_unique<UsuarioCliente>(
