@@ -85,6 +85,7 @@ void listar_hoteis() {
         std::cout << std::setw(5) << std::left << hotel.getId()
             << std::setw(30) << std::left << hotel.getNome() << std::endl;
     }
+    std::cout << std::endl;
 }
 
 void listar_reservas(const std::unique_ptr<UsuarioCliente>& usuarioLogado) {
@@ -119,6 +120,7 @@ void listar_reservas(const std::unique_ptr<UsuarioCliente>& usuarioLogado) {
                   << std::setw(15) << std::left << dataInicio_ss.str()
                   << std::setw(15) << std::left << dataFim_ss.str() << std::endl;
     }
+    std::cout << std::endl;
 }
 
 void listar_quartos(std::string idHotel) {
@@ -136,6 +138,7 @@ void listar_quartos(std::string idHotel) {
             << std::setw(20) << std::left << quarto.getNumero()
             << std::setw(40) << std::left << quarto.getLocalizacao() << std::endl;
     }
+    std::cout << std::endl;
 }
 
 void listar_reservas_do_quarto(std::string idQuarto) {
@@ -173,6 +176,7 @@ void listar_reservas_do_quarto(std::string idQuarto) {
                     << std::setw(20) << std::left << numeroQuarto
                     << std::setw(15) << std::left << dataInicio_ss.str()
                     << std::setw(15) << std::left << dataFim_ss.str() << std::endl;
+            std::cout << std::endl;
         }
     }    
 
@@ -274,7 +278,7 @@ int main() {
                                         } else {
                                             std::cout << "Reserva cancelada." << std::endl;
                                         }
-
+                                        std::cout << std::endl;
                                     } else {
                                         std::cout << "Quarto já reservado no período! Escolha outra data!" << std::endl;    
                                     }
