@@ -11,68 +11,8 @@
 #include "Reserva.hpp"
 #include "RepositorioReserva.hpp"
 #include "RepositorioQuarto.hpp"
-
-void cadastrar_usuario() {
-    std::string nome, email, cpf, senha;
-
-    std::cout << "Digite o nome: ";
-    std::getline(std::cin, nome);
-
-    std::cout << "Digite o email: ";
-    std::getline(std::cin, email);
-
-    std::cout << "Digite o CPF: ";
-    std::getline(std::cin, cpf);
-
-    std::cout << "Digite a senha: ";
-    std::getline(std::cin, senha);
-
-    UsuarioCliente usuario(nome, email, cpf, senha);
-    usuario.cadastrar();
-}
-
-std::unique_ptr<UsuarioCliente> realizar_login() {
-    std::string login_email, login_senha;
-
-    std::cout << "\nLogin" << std::endl;
-    std::cout << "Digite o email: ";
-    std::getline(std::cin, login_email);
-
-    std::cout << "Digite a senha: ";
-    std::getline(std::cin, login_senha);
-
-    UsuarioCliente usuario(login_email, login_senha);
-    std::unique_ptr<UsuarioCliente> usuarioLogado = usuario.fazer_login();
-    if (usuarioLogado != nullptr) {
-        std::cout << "Login bem-sucedido!" << std::endl;
-    } else {
-        std::cout << "Login falhou. Verifique suas credenciais." << std::endl;
-    }
-    return usuarioLogado;
-}
-
-void mostrar_opcao_encerrar() {
-    std::cout << "0 - Encerrar" << std::endl;
-}
-
-void mostrar_menu_inicial() {
-    std::cout << "Escolha uma opção:" << std::endl;
-    std::cout << "1 - Cadastro" << std::endl;
-    std::cout << "2 - Login" << std::endl;
-}
-
-std::string escolher_opcao() {
-    std::string opcao;
-    std::getline(std::cin, opcao);
-    return opcao;
-}
-
-void mostrar_menu_usuario_logado() {
-    std::cout << "Escolha uma opção:" << std::endl;
-    std::cout << "1 - Listar Hoteis" << std::endl;
-    std::cout << "2 - Reservas Realizadas" << std::endl;
-    std::cout << "3 - Reservar Quarto" << std::endl;
-}
+#include "ServicoDeHospedagem.hpp"
+#include "MenuUsuario.hpp"
 
 void listar_hoteis() {
     RepositorioHotel repositorioHotel;
@@ -184,31 +124,33 @@ void listar_reservas_do_quarto(std::string idQuarto) {
  
 int main() {
     
+    ServicoDeHospedagem servico;
+
     do {
-        mostrar_menu_inicial();
-        mostrar_opcao_encerrar();
-        std::string opcao_escolhida_inicial = escolher_opcao();
+        MenuUsuario::mostrar_menu_inicial();
+        MenuUsuario::mostrar_opcao_encerrar();
+        std::string opcao_escolhida_inicial = MenuUsuario::escolher_opcao();
         try {        
             if(opcao_escolhida_inicial == "1") {
-                cadastrar_usuario();
+                servico.cadastrarUsuario();
             } else if (opcao_escolhida_inicial == "2") {
-                    std::unique_ptr<UsuarioCliente> usuarioLogado = realizar_login();
+                    std::unique_ptr<UsuarioCliente> usuarioLogado = servico.logarUsuario();
                     if (usuarioLogado != nullptr) {
                         do {
                             try {
-                                mostrar_menu_usuario_logado();
-                                mostrar_opcao_encerrar();
-                                std::string opcao_escolhida_usuario = escolher_opcao();
+                                MenuUsuario::mostrar_menu_usuario_logado();
+                                MenuUsuario::mostrar_opcao_encerrar();
+                                std::string opcao_escolhida_usuario = MenuUsuario::escolher_opcao();
                                 if (opcao_escolhida_usuario == "1") {
                                     listar_hoteis();
                                 } else if (opcao_escolhida_usuario == "2") {
                                     listar_reservas(usuarioLogado);
                                 } else if(opcao_escolhida_usuario == "3") {
                                     std::cout << "Informe o ID do Hotel para reserva: ";
-                                    std::string id_hotel_escolhido = escolher_opcao();
+                                    std::string id_hotel_escolhido = MenuUsuario::escolher_opcao();
                                     listar_quartos(id_hotel_escolhido);
                                     std::cout << "Informe o ID do quarto para reserva: ";
-                                    std::string id_quarto_escolhido = escolher_opcao(); 
+                                    std::string id_quarto_escolhido = MenuUsuario::escolher_opcao(); 
                                     listar_reservas_do_quarto(id_quarto_escolhido);
                                     std::cout << "Digite a data inicial da reserva (formato: DD-MM-YYYY): ";
                                     std::string dataInicioReserva;
@@ -266,11 +208,11 @@ int main() {
                                         std::cout << FormaDePagamentoUtil::toString(FormaDePagamento::PIX)  << " - PIX" << std::endl;
                                         std::cout << FormaDePagamentoUtil::toString(FormaDePagamento::CARTAO_DE_DEBITO)  << " - CARTÃO DE DÉBITO" << std::endl;
                                         std::cout << "Escolha a forma de pagamento: ";
-                                        std::string opcao_forma_pagamento = escolher_opcao();
+                                        std::string opcao_forma_pagamento = MenuUsuario::escolher_opcao();
                                         reserva.setFormaDePagamento(FormaDePagamento(std::stoi(opcao_forma_pagamento)));                                        
 
                                         std::cout << "Deseja confirmar a reserva [S/N]? ";
-                                        std::string opacao_confirma_reserva = escolher_opcao();
+                                        std::string opacao_confirma_reserva = MenuUsuario::escolher_opcao();
 
                                         if (opacao_confirma_reserva == "S") {
                                             repositorioReserva.incluir(reserva);
