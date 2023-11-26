@@ -12,12 +12,16 @@
 #include "MenuUsuario.hpp"
 
 class ServicoDeHospedagem {
+
+private:
+    RepositorioReserva repositorioReserva;
+
 public:
     void cadastrarUsuario();
     std::unique_ptr<UsuarioCliente> logarUsuario();
     void listarHoteis();
     void listarReservas(const std::unique_ptr<UsuarioCliente>& usuarioLogado);
-    void listar_quartos(std::string idHotel);
+    void listarQuartos(std::string idHotel);
     void listarReservasDoQuarto(std::string idQuarto);
     void reservarQuarto(const std::unique_ptr<UsuarioCliente>& usuarioLogado);
 };

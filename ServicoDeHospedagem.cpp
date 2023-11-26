@@ -54,7 +54,6 @@ void ServicoDeHospedagem::listarHoteis() {
 }
 
 void ServicoDeHospedagem::listarReservas(const std::unique_ptr<UsuarioCliente>& usuarioLogado) {
-    RepositorioReserva repositorioReserva;
     std::vector<Reserva> reservas = repositorioReserva.listarReservas(usuarioLogado);
 
     std::cout << "\nReservas do Usuário: " << std::endl;
@@ -88,7 +87,7 @@ void ServicoDeHospedagem::listarReservas(const std::unique_ptr<UsuarioCliente>& 
     std::cout << std::endl;
 }
 
-void ServicoDeHospedagem::listar_quartos(std::string idHotel) {
+void ServicoDeHospedagem::listarQuartos(std::string idHotel) {
 
     RepositorioQuarto repositorio;
     std::vector<Quarto> quartos = repositorio.listarQuartos(idHotel);
@@ -108,8 +107,7 @@ void ServicoDeHospedagem::listar_quartos(std::string idHotel) {
 
 void ServicoDeHospedagem::listarReservasDoQuarto(std::string idQuarto) {
 
-    RepositorioReserva repositorio;
-    std::vector<Reserva> reservas = repositorio.listarReservasDoQuarto(idQuarto);
+    std::vector<Reserva> reservas = repositorioReserva.listarReservasDoQuarto(idQuarto);
 
     if (reservas.empty()) {
         std::cout << "\nO quarto selecionado ainda não possui nenhuma reserva." << std::endl;    
@@ -150,7 +148,7 @@ void ServicoDeHospedagem::listarReservasDoQuarto(std::string idQuarto) {
 void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& usuarioLogado) {
     std::cout << "Informe o ID do Hotel para reserva: ";
     std::string id_hotel_escolhido = MenuUsuario::escolher_opcao();
-    this->listar_quartos(id_hotel_escolhido);
+    this->listarQuartos(id_hotel_escolhido);
     std::cout << "Informe o ID do quarto para reserva: ";
     std::string id_quarto_escolhido = MenuUsuario::escolher_opcao(); 
     this->listarReservasDoQuarto(id_quarto_escolhido);
@@ -193,8 +191,6 @@ void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& 
     int id_quarto = std::stoi(id_quarto_escolhido, &pos);
 
     Reserva reserva(Quarto(id_quarto), dataInicio, dataFinal, *usuarioLogado);
-
-    RepositorioReserva repositorioReserva;
 
     if (repositorioReserva.estaDisponivel(reserva)) {
         double precoFinal = reserva.calcularPrecoFinal();
