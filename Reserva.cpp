@@ -58,9 +58,20 @@ FormaDePagamento Reserva::getFormaDePagamento() const {
 }
 
 void Reserva::validarDataInicioMaiorOuIgualQueODiaAtual() {
-    std::chrono::time_point<std::chrono::system_clock> dataAtual = std::chrono::system_clock::now();
+ // Obtendo a data atual
+    auto agora = std::chrono::system_clock::now();
+    std::time_t tempoAtual = std::chrono::system_clock::to_time_t(agora);
+    std::tm dataAtual = *std::localtime(&tempoAtual);
 
-    if (dataInicio < dataAtual) {
+    // Convertendo dataInicio para std::tm
+    std::time_t tempoInicio = std::chrono::system_clock::to_time_t(dataInicio);
+    std::tm dataInicioTm = *std::localtime(&tempoInicio);
+
+    // Comparando apenas dia, mês e ano
+    if (dataInicioTm.tm_year < dataAtual.tm_year ||
+        (dataInicioTm.tm_year == dataAtual.tm_year && dataInicioTm.tm_mon < dataAtual.tm_mon) ||
+        (dataInicioTm.tm_year == dataAtual.tm_year && dataInicioTm.tm_mon == dataAtual.tm_mon &&
+         dataInicioTm.tm_mday < dataAtual.tm_mday)) {
         throw DataInicioMenorQueDataAtualException();
     }
 }
