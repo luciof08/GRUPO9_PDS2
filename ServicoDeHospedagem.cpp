@@ -38,3 +38,192 @@ std::unique_ptr<UsuarioCliente> ServicoDeHospedagem::logarUsuario() {
     }
     return usuarioLogado;
 }
+
+void ServicoDeHospedagem::listarHoteis() {
+    RepositorioHotel repositorioHotel;
+    std::vector<Hotel> hoteis = repositorioHotel.listarHoteis();
+    std::cout << "\nHoteis disponíveis: " << std::endl;
+    std::cout << std::setw(5) << std::left << "ID"
+              << std::setw(30) << std::left << "Hotel" << std::endl;
+
+    for(Hotel hotel : hoteis) {
+        std::cout << std::setw(5) << std::left << hotel.getId()
+            << std::setw(30) << std::left << hotel.getNome() << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+void ServicoDeHospedagem::listarReservas(const std::unique_ptr<UsuarioCliente>& usuarioLogado) {
+    RepositorioReserva repositorioReserva;
+    std::vector<Reserva> reservas = repositorioReserva.listarReservas(usuarioLogado);
+
+    std::cout << "\nReservas do Usuário: " << std::endl;
+    std::cout << std::setw(30) << std::left << "Hotel"
+              << std::setw(20) << std::left << "Número do quarto"
+              << std::setw(15) << std::left << "Início"
+              << std::setw(15) << std::left << "Fim" << std::endl;
+
+    for(Reserva reserva : reservas) {
+         // Convertendo para std::time_t
+        std::time_t dataInicio = std::chrono::system_clock::to_time_t(reserva.getDataInicio());
+        std::time_t dataFim = std::chrono::system_clock::to_time_t(reserva.getDataFim());
+
+        // Convertendo std::time_t para std::tm (Local Time)
+        std::tm dataInicio_tm = *std::localtime(&dataInicio);
+        std::tm dataFim_tm = *std::localtime(&dataFim);
+
+        // Formatando datas para o formato dd/mm/yyyy
+        std::stringstream dataInicio_ss, dataFim_ss;
+        dataInicio_ss << std::put_time(&dataInicio_tm, "%d/%m/%Y");
+        dataFim_ss << std::put_time(&dataFim_tm, "%d/%m/%Y");
+
+        std::string nomeHotel = reserva.getQuarto().getHotel().getNome();
+        int numeroQuarto = reserva.getQuarto().getNumero();
+
+        std::cout << std::setw(30) << std::left << nomeHotel
+                  << std::setw(20) << std::left << numeroQuarto
+                  << std::setw(15) << std::left << dataInicio_ss.str()
+                  << std::setw(15) << std::left << dataFim_ss.str() << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+void ServicoDeHospedagem::listar_quartos(std::string idHotel) {
+
+    RepositorioQuarto repositorio;
+    std::vector<Quarto> quartos = repositorio.listarQuartos(idHotel);
+
+    std::cout << "\nQuartos do hotel:" << std::endl;
+    std::cout << std::setw(5) << std::left << "ID"
+              << std::setw(20) << std::left << "Número do quarto"
+              << std::setw(40) << std::left << "Localização" << std::endl;
+            
+    for (Quarto quarto : quartos) {
+        std::cout << std::setw(5) << std::left << quarto.getId()
+            << std::setw(20) << std::left << quarto.getNumero()
+            << std::setw(40) << std::left << quarto.getLocalizacao() << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+void ServicoDeHospedagem::listarReservasDoQuarto(std::string idQuarto) {
+
+    RepositorioReserva repositorio;
+    std::vector<Reserva> reservas = repositorio.listarReservasDoQuarto(idQuarto);
+
+    if (reservas.empty()) {
+        std::cout << "\nO quarto selecionado ainda não possui nenhuma reserva." << std::endl;    
+    } else {
+        std::cout << "\nReservas para o quarto de ID " << reservas.front().getQuarto().getId() << ":" <<  std::endl;
+        std::cout << std::setw(30) << std::left << "Hotel"
+              << std::setw(20) << std::left << "Número do quarto"
+              << std::setw(15) << std::left << "Início"
+              << std::setw(15) << std::left << "Fim" << std::endl;
+
+        for (Reserva reserva : reservas) {
+            // Convertendo para std::time_t
+            std::time_t dataInicio = std::chrono::system_clock::to_time_t(reserva.getDataInicio());
+            std::time_t dataFim = std::chrono::system_clock::to_time_t(reserva.getDataFim());
+
+            // Convertendo std::time_t para std::tm (Local Time)
+            std::tm dataInicio_tm = *std::localtime(&dataInicio);
+            std::tm dataFim_tm = *std::localtime(&dataFim);
+
+            // Formatando datas para o formato dd/mm/yyyy
+            std::stringstream dataInicio_ss, dataFim_ss;
+            dataInicio_ss << std::put_time(&dataInicio_tm, "%d/%m/%Y");
+            dataFim_ss << std::put_time(&dataFim_tm, "%d/%m/%Y");
+
+            std::string nomeHotel = reserva.getQuarto().getHotel().getNome();
+            int numeroQuarto = reserva.getQuarto().getNumero();
+
+            std::cout << std::setw(30) << std::left << nomeHotel
+                    << std::setw(20) << std::left << numeroQuarto
+                    << std::setw(15) << std::left << dataInicio_ss.str()
+                    << std::setw(15) << std::left << dataFim_ss.str() << std::endl;
+            std::cout << std::endl;
+        }
+    }    
+
+}
+
+void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& usuarioLogado) {
+    std::cout << "Informe o ID do Hotel para reserva: ";
+    std::string id_hotel_escolhido = MenuUsuario::escolher_opcao();
+    this->listar_quartos(id_hotel_escolhido);
+    std::cout << "Informe o ID do quarto para reserva: ";
+    std::string id_quarto_escolhido = MenuUsuario::escolher_opcao(); 
+    this->listarReservasDoQuarto(id_quarto_escolhido);
+    std::cout << "Digite a data inicial da reserva (formato: DD-MM-YYYY): ";
+    std::string dataInicioReserva;
+    std::getline(std::cin, dataInicioReserva);
+    std::cout << "Digite a data final da reserva (formato: DD-MM-YYYY): ";
+    std::string dataFinalReserva;
+    std::getline(std::cin, dataFinalReserva);
+    
+    std::istringstream ssInicio(dataInicioReserva);
+    std::tm tmInicio = {};
+    ssInicio >> std::get_time(&tmInicio, "%d-%m-%Y");
+    tmInicio.tm_hour = 0;
+    tmInicio.tm_min = 0;
+    tmInicio.tm_sec = 0;
+    std::chrono::system_clock::time_point dataInicio = std::chrono::system_clock::from_time_t(std::mktime(&tmInicio));
+    if (ssInicio.fail()) {
+        // OBS.: lançar exceção aqui ou fazer verificação quando construir o objeto de Reserva
+        std::cout << "Formato inválido!" << std::endl;
+    } else {
+        // Utilize 'dataInicio' conforme necessário
+        std::cout << "Data lida: " << std::chrono::system_clock::to_time_t(dataInicio) << std::endl;
+    }
+    std::istringstream ssFinal(dataFinalReserva);
+    std::tm tmFinal = {};
+    ssFinal >> std::get_time(&tmFinal, "%d-%m-%Y");
+    tmFinal.tm_hour = 0;
+    tmFinal.tm_min = 0;
+    tmFinal.tm_sec = 0;
+    std::chrono::system_clock::time_point dataFinal = std::chrono::system_clock::from_time_t(std::mktime(&tmFinal));
+    if (ssFinal.fail()) {
+        // OBS.: lançar exceção aqui ou fazer verificação quando construir o objeto de Reserva
+        std::cout << "Formato inválido!" << std::endl;
+    } else {
+        // Utilize 'dataInicio' conforme necessário
+        std::cout << "Data lida: " << std::chrono::system_clock::to_time_t(dataFinal) << std::endl;
+    }
+    size_t pos; 
+    int id_quarto = std::stoi(id_quarto_escolhido, &pos);
+
+    Reserva reserva(Quarto(id_quarto), dataInicio, dataFinal, *usuarioLogado);
+
+    RepositorioReserva repositorioReserva;
+
+    if (repositorioReserva.estaDisponivel(reserva)) {
+        double precoFinal = reserva.calcularPrecoFinal();
+        // Salva o locale atual
+        const std::locale oldLocale = std::cout.imbue(std::locale("pt_BR.UTF-8"));
+        std::cout << "Valor total da reserva: R$ " << std::fixed << std::setprecision(2) << precoFinal << std::endl;
+        // Restaura o locale anterior
+        std::cout.imbue(oldLocale);
+
+        std::cout << "\nFormas de pagamento:" << std::endl;
+        std::cout << FormaDePagamentoUtil::toString(FormaDePagamento::BOLETO)  << " - BOLETO" << std::endl;
+        std::cout << FormaDePagamentoUtil::toString(FormaDePagamento::CARTAO_DE_CREDITO)  << " - CARTÃO DE CRÉDITO" << std::endl;
+        std::cout << FormaDePagamentoUtil::toString(FormaDePagamento::PIX)  << " - PIX" << std::endl;
+        std::cout << FormaDePagamentoUtil::toString(FormaDePagamento::CARTAO_DE_DEBITO)  << " - CARTÃO DE DÉBITO" << std::endl;
+        std::cout << "Escolha a forma de pagamento: ";
+        std::string opcao_forma_pagamento = MenuUsuario::escolher_opcao();
+        reserva.setFormaDePagamento(FormaDePagamento(std::stoi(opcao_forma_pagamento)));                                        
+
+        std::cout << "Deseja confirmar a reserva [S/N]? ";
+        std::string opacao_confirma_reserva = MenuUsuario::escolher_opcao();
+
+        if (opacao_confirma_reserva == "S") {
+            repositorioReserva.incluir(reserva);
+            std::cout << "Reserva efetuada com sucesso!" << std::endl;
+        } else {
+            std::cout << "Reserva cancelada." << std::endl;
+        }
+        std::cout << std::endl;
+    } else {
+        std::cout << "Quarto já reservado no período! Escolha outra data!" << std::endl;    
+    }
+}
