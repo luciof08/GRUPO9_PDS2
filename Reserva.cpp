@@ -7,9 +7,11 @@ const double Reserva::PRECO_DIARIA = 100.0;
 Reserva::Reserva(int id, const Quarto& quarto, const std::chrono::time_point<std::chrono::system_clock>& dataInicio,
         const std::chrono::time_point<std::chrono::system_clock>& dataFim, const UsuarioCliente& usuario)
     : id(id), quarto(quarto), dataInicio(dataInicio), dataFim(dataFim), usuario(usuario) {}
+
 Reserva::Reserva(const Quarto& quarto, const std::chrono::time_point<std::chrono::system_clock>& dataInicio,
         const std::chrono::time_point<std::chrono::system_clock>& dataFim, const UsuarioCliente& usuario)
     : quarto(quarto), dataInicio(dataInicio), dataFim(dataFim), usuario(usuario) {
+        validarDataInicioMaiorOuIgualQueODiaAtual();
         validarDataInicioMenorQueDataFim();
     }
 
@@ -53,4 +55,12 @@ void Reserva::setFormaDePagamento(const FormaDePagamento& formaDePagamento) {
 
 FormaDePagamento Reserva::getFormaDePagamento() const {
     return formaDePagamento;
+}
+
+void Reserva::validarDataInicioMaiorOuIgualQueODiaAtual() {
+    std::chrono::time_point<std::chrono::system_clock> dataAtual = std::chrono::system_clock::now();
+
+    if (dataInicio < dataAtual) {
+        throw DataInicioMenorQueDataAtualException();
+    }
 }

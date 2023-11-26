@@ -14,6 +14,13 @@ public:
     }
 };
 
+class DataInicioMenorQueDataAtualException : public std::exception {
+public:
+    const char* what() const noexcept override {
+        return "Erro: A data de início deve ser igual ou maior que a data atual.";
+    }
+};
+
 class Reserva {
 private:
     int id;
@@ -25,6 +32,7 @@ private:
     FormaDePagamento formaDePagamento;
 
     void validarDataInicioMenorQueDataFim();
+    void validarDataInicioMaiorOuIgualQueODiaAtual();
 
 public:
     // Construtor
