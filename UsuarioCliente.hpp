@@ -9,7 +9,7 @@
 class EmailInvalidoException : public std::exception {
 public:
     virtual const char* what() const throw() {
-        return "Email inválido.";
+        return "Email do usuário é inválido.";
     }
 };
 
@@ -17,7 +17,7 @@ public:
 class CPFInvalidoException : public std::exception {
 public:
     virtual const char* what() const throw() {
-        return "CPF inválido.";
+        return "CPF do usuário é inválido.";
     }
 };
 
