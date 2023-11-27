@@ -2,6 +2,8 @@
 #define CONEXAOBANCODEDADOS_HPP
 
 #include <string>
+#include <pqxx/pqxx>
+#include <memory>
 
 /// @brief Classe que representa dos dados de conexão com o banco de dados
 class ConexaoBancoDeDados {
@@ -10,7 +12,7 @@ private:
     std::string user;
     std::string password;
     std::string host;
-
+    std::unique_ptr<pqxx::connection> connection;
 public:
 
     ConexaoBancoDeDados();
@@ -27,6 +29,8 @@ public:
     /// @brief Obtém o host do banco de dados.
     /// @return Host do banco de dados
     std::string getHost() const;
+
+    pqxx::connection& getConnection();
 };
 
 #endif // CONEXAOBANCODEDADOS_HPP

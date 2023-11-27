@@ -8,9 +8,13 @@
 #include "FormaDePagamentoUtil.hpp"
 
 class RepositorioReserva {
+
 private:
-    ConexaoBancoDeDados conexao;
+    std::unique_ptr<ConexaoBancoDeDados> conexao;
+
 public:
+    RepositorioReserva();
+
     std::vector<Reserva> listarReservas(const std::unique_ptr<UsuarioCliente>& usuario);
     std::vector<Reserva> listarReservasDoQuarto(std::string idQuarto); 
     void incluir(const Reserva& reserva);

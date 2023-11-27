@@ -17,6 +17,7 @@ private:
     RepositorioReserva repositorioReserva;
 
 public:
+
     void cadastrarUsuario();
     std::unique_ptr<UsuarioCliente> logarUsuario();
     void listarHoteis();
