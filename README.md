@@ -12,12 +12,11 @@
 5. O sistema exibe ao usuário os quartos e as datas disponíveis para os quartos
 6. O usuário escolhe o quarto que deseja reservar e informa as datas de início e fim da estadia
     - O sistema valida se o quarto está disponível naquela data
+    - O sistema valida se a data inicial é maior ou igual que a data atual
     - O sistema valida se a data final é superior a data inicial
 7. Após a seleção das datas, o sistema deve informar o preço final
-8. Após confirmar a seleção, o sistema deve bloquear temporariamente (x minutos) a disponbilidade do quarto
-no período selecionado
-9. O sistema exibe as formas de pagamento disponíveis para o hotel
-10. O usuário informa a forma de pagamento e confirma a reserva 
+8. O sistema exibe as formas de pagamento disponíveis para o hotel
+9. O usuário informa a forma de pagamento e confirma a reserva 
 
 **Usuário administrador**
 
