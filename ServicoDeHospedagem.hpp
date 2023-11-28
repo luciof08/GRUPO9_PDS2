@@ -11,10 +11,18 @@
 #include "RepositorioQuarto.hpp"
 #include "MenuUsuario.hpp"
 
+class HotelNaoExisteOuNaoPossuiQuartoCadastradoException : public std::exception {
+public:
+    virtual const char* what() const throw() {
+        return "O ID do hotel informado ou não existe ou não possui quartos cadastrados!";
+    }
+};
+
 class ServicoDeHospedagem {
 
 private:
     RepositorioReserva repositorioReserva;
+    void exibeQuartos();
 
 public:
 

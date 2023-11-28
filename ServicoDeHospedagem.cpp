@@ -92,6 +92,10 @@ void ServicoDeHospedagem::listarQuartos(std::string idHotel) {
     RepositorioQuarto repositorio;
     std::vector<Quarto> quartos = repositorio.listarQuartos(idHotel);
 
+    if(quartos.empty()) {
+       throw HotelNaoExisteOuNaoPossuiQuartoCadastradoException();
+    }
+
     std::cout << "\nQuartos do hotel:" << std::endl;
     std::cout << std::setw(5) << std::left << "ID"
               << std::setw(20) << std::left << "Número do quarto"
@@ -145,16 +149,25 @@ void ServicoDeHospedagem::listarReservasDoQuarto(std::string idQuarto) {
 
 }
 
-void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& usuarioLogado) {
+void ServicoDeHospedagem::exibeQuartos() {
     std::cout << "Informe o ID do Hotel para reserva: ";
     std::string id_hotel_escolhido = MenuUsuario::escolher_opcao();
     this->listarQuartos(id_hotel_escolhido);
+
+}
+
+void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& usuarioLogado) {
+    
+    exibeQuartos();
+    
     std::cout << "Informe o ID do quarto para reserva: ";
     std::string id_quarto_escolhido = MenuUsuario::escolher_opcao(); 
     this->listarReservasDoQuarto(id_quarto_escolhido);
+    
     std::cout << "Digite a data inicial da reserva (formato: DD-MM-YYYY): ";
     std::string dataInicioReserva;
     std::getline(std::cin, dataInicioReserva);
+    
     std::cout << "Digite a data final da reserva (formato: DD-MM-YYYY): ";
     std::string dataFinalReserva;
     std::getline(std::cin, dataFinalReserva);
@@ -209,14 +222,16 @@ void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& 
         std::string opcao_forma_pagamento = MenuUsuario::escolher_opcao();
         reserva.setFormaDePagamento(FormaDePagamento(std::stoi(opcao_forma_pagamento)));                                        
 
-        std::cout << "Deseja confirmar a reserva [S/N]? ";
+        std::cout << "\nDeseja confirmar a reserva [S/N]? ";
         std::string opacao_confirma_reserva = MenuUsuario::escolher_opcao();
 
         if (opacao_confirma_reserva == "S") {
             repositorioReserva.incluir(reserva);
             std::cout << "Reserva efetuada com sucesso!" << std::endl;
+            std::cout << std::endl;
         } else {
             std::cout << "Reserva cancelada." << std::endl;
+            std::cout << std::endl;
         }
         std::cout << std::endl;
     } else {
