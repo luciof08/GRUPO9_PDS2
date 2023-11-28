@@ -173,10 +173,12 @@ void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& 
     std::cout << "Digite a data inicial da reserva (formato: DD-MM-YYYY): ";
     std::string dataInicioReserva;
     std::getline(std::cin, dataInicioReserva);
+    EntradaUtil::removerEspacosInicioFim(dataInicioReserva);
     
     std::cout << "Digite a data final da reserva (formato: DD-MM-YYYY): ";
     std::string dataFinalReserva;
     std::getline(std::cin, dataFinalReserva);
+    EntradaUtil::removerEspacosInicioFim(dataFinalReserva);
     
     std::istringstream ssInicio(dataInicioReserva);
     std::tm tmInicio = {};
@@ -220,11 +222,14 @@ void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& 
         std::cout << FormaDePagamentoUtil::toString(FormaDePagamento::CARTAO_DE_DEBITO)  << " - CARTÃO DE DÉBITO" << std::endl;
         std::cout << "Escolha a forma de pagamento: ";
         std::string opcao_forma_pagamento = MenuUsuario::escolher_opcao();
+
         reserva.setFormaDePagamento(FormaDePagamento(std::stoi(opcao_forma_pagamento)));                                        
 
         std::cout << "\nDeseja confirmar a reserva [S/N]? ";
-        std::string opacao_confirma_reserva = MenuUsuario::escolher_opcao();
-
+        std::string opacao_confirma_reserva = MenuUsuario::escolher_opcao_str();
+        
+        EntradaUtil::tornarCaixaAlta(opacao_confirma_reserva);
+        
         if (opacao_confirma_reserva == "S") {
             repositorioReserva.incluir(reserva);
             std::cout << "Reserva efetuada com sucesso!" << std::endl;

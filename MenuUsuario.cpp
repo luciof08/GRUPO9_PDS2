@@ -1,4 +1,5 @@
 #include "MenuUsuario.hpp"
+#include "EntradaUtil.hpp"
 
 void MenuUsuario::mostrar_opcao_encerrar() {
     std::cout << "0 - Encerrar" << std::endl;
@@ -13,6 +14,17 @@ void MenuUsuario::mostrar_menu_inicial() {
 std::string MenuUsuario::escolher_opcao() {
     std::string opcao;
     std::getline(std::cin, opcao);
+    EntradaUtil::removerEspacosInicioFim(opcao);
+    if(!EntradaUtil::contemInteiro(opcao)) {
+        throw EntradaInvalidaException();
+    }
+    return opcao;
+}
+
+std::string MenuUsuario::escolher_opcao_str() {
+    std::string opcao;
+    std::getline(std::cin, opcao);
+    EntradaUtil::removerEspacosInicioFim(opcao);
     return opcao;
 }
 

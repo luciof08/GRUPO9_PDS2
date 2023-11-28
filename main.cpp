@@ -10,6 +10,7 @@
 #include "Reserva.hpp"
 #include "ServicoDeHospedagem.hpp"
 #include "MenuUsuario.hpp"
+#include "EntradaUtil.hpp"
  
 int main() {
     

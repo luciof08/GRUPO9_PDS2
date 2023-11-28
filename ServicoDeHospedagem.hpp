@@ -10,6 +10,7 @@
 #include "RepositorioReserva.hpp"
 #include "RepositorioQuarto.hpp"
 #include "MenuUsuario.hpp"
+#include "EntradaUtil.hpp"
 
 class HotelNaoExisteOuNaoPossuiQuartoCadastradoException : public std::exception {
 public:
