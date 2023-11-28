@@ -10,9 +10,11 @@
 class RepositorioUsuario {
 
 private:
-    ConexaoBancoDeDados conexao;
+    std::unique_ptr<ConexaoBancoDeDados> conexao;
 
 public:
+
+    RepositorioUsuario();
 
     /// @brief Cadastra um usuário no banco de dados.
     /// @param usuario a ser cadastrado

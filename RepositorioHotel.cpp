@@ -1,15 +1,15 @@
 #include "RepositorioHotel.hpp"
 #include <pqxx/pqxx>
 
+RepositorioHotel::RepositorioHotel() {
+    conexao = std::make_unique<ConexaoBancoDeDados>();
+}
+
 std::vector<Hotel> RepositorioHotel::listarHoteis() {
     std::vector<Hotel> hoteis;
 
     try {
-        // Conecte ao banco de dados
-        pqxx::connection conn("dbname=" + conexao.getDBName() + " user=" + conexao.getUser() + " password=" + conexao.getPassword() + " host=" + conexao.getHost());
-        if (conn.is_open()) {
-            // Execute a consulta SQL
-            pqxx::work txn(conn);
+            pqxx::work txn(conexao->getConnection());
             pqxx::result result = txn.exec("SELECT id, nome, telefone_contato, cnpj, endereco FROM hotel");
 
             // Itere pelos resultados e crie objetos Hotel
@@ -26,13 +26,10 @@ std::vector<Hotel> RepositorioHotel::listarHoteis() {
             }
 
             txn.commit();
-        } else {
-            throw std::runtime_error("Falha ao conectar ao banco de dados.");
-        }
 
-        conn.disconnect();
     } catch (const std::exception &e) {
-        std::cerr << e.what() << std::endl;
+        std::cerr << "Erro: " << e.what() << std::endl;
+        throw std::runtime_error(e.what());
     }
 
     return hoteis;

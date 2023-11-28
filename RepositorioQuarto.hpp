@@ -9,9 +9,13 @@
 #include "ConexaoBancoDeDados.hpp"
 
 class RepositorioQuarto {
+
 private:
-    ConexaoBancoDeDados conexao;
+       std::unique_ptr<ConexaoBancoDeDados> conexao;
+
 public:
+    RepositorioQuarto();
+
     std::vector<Quarto> listarQuartos(std::string idHotel);
 };
 

@@ -10,9 +10,11 @@
 class RepositorioHotel {
 
 private:
-    ConexaoBancoDeDados conexao;
+    std::unique_ptr<ConexaoBancoDeDados> conexao;
 
 public:
+    RepositorioHotel();
+
     /// @brief Consulta os hotéis do banco de dados.
     /// @return uma lista de hotéis
     std::vector<Hotel> listarHoteis();
