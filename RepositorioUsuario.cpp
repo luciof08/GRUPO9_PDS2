@@ -65,7 +65,12 @@ bool RepositorioUsuario::verificarExistenciaUsuario(const UsuarioCliente &usuari
     try {
         pqxx::work txn(conexao->getConnection());
 
-        pqxx::result result = txn.exec("SELECT * FROM usuario_cliente WHERE cpf = '" + usuario.getCPF() + "'");
+        pqxx::result result = txn.exec("SELECT * \
+                                        FROM usuario_cliente \
+                                        WHERE \
+                                            cpf = '" + usuario.getCPF() + "' " +  
+                                        " OR " +
+                                           " email = '" + usuario.getEmail() + "' ");
 
         if (!result.empty()) {
             usuarioExiste = true;

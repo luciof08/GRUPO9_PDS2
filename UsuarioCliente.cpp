@@ -96,6 +96,7 @@ void UsuarioCliente::cadastrar() {
         throw UsuarioJaCadastradoException();
     }
     repositorio.cadastrar(*this); 
+    std::cout << std::endl;
     std::cout << "Usuário cadastrado com sucesso!" << std::endl;
     std::cout << std::endl;
 }

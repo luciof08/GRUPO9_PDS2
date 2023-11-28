@@ -24,7 +24,7 @@ public:
 class UsuarioJaCadastradoException : public std::exception {
 public:
     virtual const char* what() const throw() {
-        return "Usuário já cadastrado.";
+        return "Usuário já cadastrado. Verifique o email ou cpf!";
     }
 };
 
