@@ -54,6 +54,7 @@ void ServicoDeHospedagem::listarHoteis() {
 }
 
 void ServicoDeHospedagem::listarReservas(const std::unique_ptr<UsuarioCliente>& usuarioLogado) {
+    
     std::vector<Reserva> reservas = repositorioReserva.listarReservas(usuarioLogado);
 
     std::cout << "\nReservas do Usuário: " << std::endl;
@@ -89,8 +90,7 @@ void ServicoDeHospedagem::listarReservas(const std::unique_ptr<UsuarioCliente>& 
 
 void ServicoDeHospedagem::listarQuartos(std::string idHotel) {
 
-    RepositorioQuarto repositorio;
-    std::vector<Quarto> quartos = repositorio.listarQuartos(idHotel);
+    std::vector<Quarto> quartos = repositorioQuarto.listarQuartos(idHotel);
 
     if(quartos.empty()) {
        throw HotelNaoExisteOuNaoPossuiQuartoCadastradoException();
@@ -110,6 +110,10 @@ void ServicoDeHospedagem::listarQuartos(std::string idHotel) {
 }
 
 void ServicoDeHospedagem::listarReservasDoQuarto(std::string idQuarto) {
+
+    if(!repositorioQuarto.existeQuarto(idQuarto)) {
+        throw QuartoNaoCadastradoException();
+    }
 
     std::vector<Reserva> reservas = repositorioReserva.listarReservasDoQuarto(idQuarto);
 
@@ -153,15 +157,17 @@ void ServicoDeHospedagem::exibeQuartos() {
     std::cout << "Informe o ID do Hotel para reserva: ";
     std::string id_hotel_escolhido = MenuUsuario::escolher_opcao();
     this->listarQuartos(id_hotel_escolhido);
+}
 
+std::string ServicoDeHospedagem::escolherQuarto() {
+    std::cout << "Informe o ID do quarto para reserva: ";
+    return MenuUsuario::escolher_opcao(); 
 }
 
 void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& usuarioLogado) {
     
-    exibeQuartos();
-    
-    std::cout << "Informe o ID do quarto para reserva: ";
-    std::string id_quarto_escolhido = MenuUsuario::escolher_opcao(); 
+    this->exibeQuartos();
+    std::string id_quarto_escolhido = this->escolherQuarto();
     this->listarReservasDoQuarto(id_quarto_escolhido);
     
     std::cout << "Digite a data inicial da reserva (formato: DD-MM-YYYY): ";
@@ -180,12 +186,9 @@ void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& 
     tmInicio.tm_sec = 0;
     std::chrono::system_clock::time_point dataInicio = std::chrono::system_clock::from_time_t(std::mktime(&tmInicio));
     if (ssInicio.fail()) {
-        // OBS.: lançar exceção aqui ou fazer verificação quando construir o objeto de Reserva
-        std::cout << "Formato inválido!" << std::endl;
-    } else {
-        // Utilize 'dataInicio' conforme necessário
-        std::cout << "Data lida: " << std::chrono::system_clock::to_time_t(dataInicio) << std::endl;
+        throw DataInvalidaException();
     }
+
     std::istringstream ssFinal(dataFinalReserva);
     std::tm tmFinal = {};
     ssFinal >> std::get_time(&tmFinal, "%d-%m-%Y");
@@ -194,12 +197,9 @@ void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& 
     tmFinal.tm_sec = 0;
     std::chrono::system_clock::time_point dataFinal = std::chrono::system_clock::from_time_t(std::mktime(&tmFinal));
     if (ssFinal.fail()) {
-        // OBS.: lançar exceção aqui ou fazer verificação quando construir o objeto de Reserva
-        std::cout << "Formato inválido!" << std::endl;
-    } else {
-        // Utilize 'dataInicio' conforme necessário
-        std::cout << "Data lida: " << std::chrono::system_clock::to_time_t(dataFinal) << std::endl;
+        throw DataInvalidaException();
     }
+
     size_t pos; 
     int id_quarto = std::stoi(id_quarto_escolhido, &pos);
 

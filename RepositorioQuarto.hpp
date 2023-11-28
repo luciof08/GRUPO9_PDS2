@@ -15,7 +15,7 @@ private:
 
 public:
     RepositorioQuarto();
-
+    bool existeQuarto(std::string idQuarto);
     std::vector<Quarto> listarQuartos(std::string idHotel);
 };
 

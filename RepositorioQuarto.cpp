@@ -43,3 +43,19 @@ std::vector<Quarto> RepositorioQuarto::listarQuartos(std::string idHotel) {
 
     return quartos;
 }
+
+bool RepositorioQuarto::existeQuarto(std::string idQuarto) {
+    try {
+        pqxx::work txn(conexao->getConnection());
+        std::string query = "SELECT COUNT(*) FROM quarto WHERE id = " + txn.quote(idQuarto);
+        pqxx::result result = txn.exec(query);
+
+        int count = result[0][0].as<int>();
+        txn.commit();
+
+        return (count > 0);
+    } catch (const std::exception& e) {
+         std::cerr << "Erro: " << e.what() << std::endl;
+        throw std::runtime_error(e.what());
+    }
+}

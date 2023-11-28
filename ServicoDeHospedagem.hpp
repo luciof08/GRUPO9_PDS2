@@ -18,11 +18,28 @@ public:
     }
 };
 
+class QuartoNaoCadastradoException : public std::exception {
+public:
+    virtual const char* what() const throw() {
+        return "O ID do quarto informado não existe!";
+    }
+};
+
+class DataInvalidaException : public std::exception {
+public:
+    virtual const char* what() const throw() {
+        return "Formato de data inválido!";
+    }
+};
+
 class ServicoDeHospedagem {
 
 private:
     RepositorioReserva repositorioReserva;
+    RepositorioQuarto repositorioQuarto;
+
     void exibeQuartos();
+    std::string escolherQuarto();
 
 public:
 

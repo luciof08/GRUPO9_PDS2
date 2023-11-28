@@ -45,6 +45,7 @@ UsuarioCliente Reserva::getUsuario() const {
 double Reserva::calcularPrecoFinal() const {
     std::chrono::duration<double> duracao = dataFim - dataInicio;
     int numDias = static_cast<int>(std::chrono::duration_cast<std::chrono::hours>(duracao).count() / 24); 
+    std::cout << "Valor da diária: " << PRECO_DIARIA << std::endl;
     std::cout << "Dias calculados: " << numDias << std::endl;
     return PRECO_DIARIA * numDias; 
 }
