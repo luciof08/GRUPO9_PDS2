@@ -13,7 +13,7 @@ OBJS = $(SRCS:.cpp=.o)
 DEPS = ConexaoBancoDeDados.hpp RepositorioUsuario.hpp UsuarioCliente.hpp Hotel.hpp RepositorioHotel.hpp Quarto.hpp FormaDePagamento.hpp FormaDePagamentoUtil.hpp Reserva.hpp RepositorioReserva.hpp RepositorioQuarto.hpp ServicoDeHospedagem.hpp MenuUsuario.hpp EntradaUtil.hpp
 
 # Arquivos-fonte para os testes
-TEST_SRCS = UsuarioClienteTest.cpp ConexaoBancoDeDados.cpp RepositorioUsuario.cpp UsuarioCliente.cpp  
+TEST_SRCS = Tests.cpp ConexaoBancoDeDados.cpp RepositorioUsuario.cpp UsuarioCliente.cpp Hotel.cpp  
 TEST_OBJS = $(TEST_SRCS:.cpp=.o)
 
 # Nome do executável de teste
@@ -22,26 +22,34 @@ TEST_EXEC = testes.out
 # Nome do executável
 EXEC = programa.out
 
-.PHONY: all clean
+.PHONY: all clean build test run
 
 # Regra padrão, compila todos os arquivos
-all: $(EXEC)
+all: build
+
+# Regra para compilar a aplicação e os testes
+build: $(EXEC) $(TEST_EXEC)
 
 # Compilação dos arquivos objeto
 %.o: %.cpp $(DEPS)
 	$(CXX) $(CXXFLAGS) -c -o $@ $<
 
-# Linkagem dos objetos para criar o executável
+# Linkagem dos objetos para criar o executável da aplicação
 $(EXEC): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
-# Regra para compilar os testes
-tests: $(TEST_EXEC)
+# Regra para executar os testes
+test: $(TEST_EXEC)
 	./$(TEST_EXEC)
 
+# Linkagem dos objetos para criar o executável dos testes
 $(TEST_EXEC): $(TEST_OBJS)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
-# Limpa os arquivos objetos e o executável
+# Regra para executar a aplicação
+run: $(EXEC)
+	./$(EXEC)
+
+# Limpa os arquivos objetos e os executáveis
 clean:
-	rm -f $(OBJS) $(EXEC)
+	rm -f $(OBJS) $(EXEC) $(TEST_OBJS) $(TEST_EXEC)
