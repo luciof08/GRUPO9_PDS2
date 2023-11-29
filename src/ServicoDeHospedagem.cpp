@@ -1,4 +1,4 @@
-#include "ServicoDeHospedagem.hpp"
+#include "../include/ServicoDeHospedagem.hpp"
 
 void ServicoDeHospedagem::cadastrarUsuario() {
     std::string nome, email, cpf, senha;

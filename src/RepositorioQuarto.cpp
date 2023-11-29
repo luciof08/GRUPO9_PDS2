@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "RepositorioQuarto.hpp"
+#include "../include/RepositorioQuarto.hpp"
 
 RepositorioQuarto::RepositorioQuarto() {
     conexao = std::make_unique<ConexaoBancoDeDados>();

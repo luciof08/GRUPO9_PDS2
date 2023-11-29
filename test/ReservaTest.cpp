@@ -1,5 +1,5 @@
 #include "doctest/doctest.h"
-#include "../Reserva.hpp"
+#include "../include/Reserva.hpp"
 #include <chrono>
 
 TEST_CASE("Testes da classe Reserva") {

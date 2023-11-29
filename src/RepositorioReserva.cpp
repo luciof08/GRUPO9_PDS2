@@ -1,8 +1,8 @@
-#include "RepositorioReserva.hpp"
-#include "Reserva.hpp"
-#include "UsuarioCliente.hpp"
-#include "Quarto.hpp" 
-#include "Hotel.hpp" 
+#include "../include/RepositorioReserva.hpp"
+#include "../include/Reserva.hpp"
+#include "../include/UsuarioCliente.hpp"
+#include "../include/Quarto.hpp" 
+#include "../include/Hotel.hpp" 
 #include <pqxx/pqxx>
 #include <chrono>
 #include <iostream>

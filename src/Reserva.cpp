@@ -1,4 +1,4 @@
-#include "Reserva.hpp"
+#include "../include/Reserva.hpp"
 #include <iostream>
 
 const double Reserva::PRECO_DIARIA = 100.0;

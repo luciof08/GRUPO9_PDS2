@@ -1,5 +1,5 @@
-#include "MenuUsuario.hpp"
-#include "EntradaUtil.hpp"
+#include "../include/MenuUsuario.hpp"
+#include "../include/EntradaUtil.hpp"
 
 void MenuUsuario::mostrar_opcao_encerrar() {
     std::cout << "0 - Encerrar" << std::endl;

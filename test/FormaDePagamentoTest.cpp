@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../FormaDePagamentoUtil.hpp"
+#include "../include/FormaDePagamentoUtil.hpp"
 
 TEST_CASE("Testes da classe FormaDePagamentoUtil") {
     SUBCASE("Teste de conversão para string") {

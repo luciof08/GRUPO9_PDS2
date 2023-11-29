@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../EntradaUtil.hpp"
+#include "../include/EntradaUtil.hpp"
 
 TEST_CASE("Testes da classe EntradaUtil") {
     SUBCASE("Teste de remoção de espaços em branco do início e fim da string") {

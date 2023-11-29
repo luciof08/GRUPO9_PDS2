@@ -1,4 +1,4 @@
-#include "RepositorioHotel.hpp"
+#include "../include/RepositorioHotel.hpp"
 #include <pqxx/pqxx>
 
 RepositorioHotel::RepositorioHotel() {

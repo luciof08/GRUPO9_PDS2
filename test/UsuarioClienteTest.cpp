@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../UsuarioCliente.hpp"
+#include "../include/UsuarioCliente.hpp"
 
 // Observação: Esses testes que precisam de acesso ao banco de dados,
 // se tornam testes de integração.

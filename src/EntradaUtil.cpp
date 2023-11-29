@@ -1,4 +1,4 @@
-#include "EntradaUtil.hpp"
+#include "../include/EntradaUtil.hpp"
 #include <cctype>
 
 void EntradaUtil::removerEspacosInicioFim(std::string& str) {

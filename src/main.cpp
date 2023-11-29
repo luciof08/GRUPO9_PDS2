@@ -4,13 +4,13 @@
 #include <ctime>
 #include <iomanip> 
 #include <sstream> 
-#include "UsuarioCliente.hpp"
-#include "Quarto.hpp"
-#include "Hotel.hpp"
-#include "Reserva.hpp"
-#include "ServicoDeHospedagem.hpp"
-#include "MenuUsuario.hpp"
-#include "EntradaUtil.hpp"
+#include "../include/UsuarioCliente.hpp"
+#include "../include/Quarto.hpp"
+#include "../include/Hotel.hpp"
+#include "../include/Reserva.hpp"
+#include "../include/ServicoDeHospedagem.hpp"
+#include "../include/MenuUsuario.hpp"
+#include "../include/EntradaUtil.hpp"
  
 int main() {
     

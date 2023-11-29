@@ -1,5 +1,5 @@
-#include "RepositorioUsuario.hpp"
-#include "UsuarioCliente.hpp"
+#include "../include/RepositorioUsuario.hpp"
+#include "../include/UsuarioCliente.hpp"
 #include <iostream>
 #include <pqxx/pqxx>
 

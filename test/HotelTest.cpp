@@ -1,5 +1,5 @@
 #include <doctest/doctest.h>
-#include "../Hotel.hpp"
+#include "../include/Hotel.hpp"
 
 TEST_CASE("Testes de configuração e obtenção dos dados do hotel") {
     Hotel hotel;

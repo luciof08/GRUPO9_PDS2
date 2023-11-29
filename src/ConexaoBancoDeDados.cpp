@@ -1,4 +1,4 @@
-#include "ConexaoBancoDeDados.hpp"
+#include "../include/ConexaoBancoDeDados.hpp"
 
 ConexaoBancoDeDados::ConexaoBancoDeDados() {
     this->dbname = "postgres";
