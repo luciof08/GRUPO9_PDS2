@@ -18,12 +18,6 @@
 8. O sistema exibe as formas de pagamento disponíveis para o hotel
 9. O usuário informa a forma de pagamento e confirma a reserva 
 
-**Usuário administrador**
-
-1. Cadastrar Hotél
-2. Cadastrar Quarto para Hotel e datas disponíveis para Reserva no Quarto
-
-
 # Instruções de compilação e execução
 
 ## Para limpar os arquivos objetos e executável
@@ -48,6 +42,12 @@ make tests
 
 ```
 ./reserva
+```
+
+## Para gerar a documentação
+
+```
+doxygen Doxyfile
 ```
 
 # Banco de dados
