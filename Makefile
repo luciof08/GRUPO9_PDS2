@@ -1,8 +1,5 @@
-# Makefile para compilar um programa C++ com conexão PostgreSQL usando pqxx/pqxx
-
 # Comando do compilador
 CXX = g++
-
 # Flags de compilação e de linkagem
 CXXFLAGS = -Wall -Wextra -std=c++17
 LDFLAGS = -lpqxx -lpq
@@ -13,7 +10,8 @@ OBJS = $(SRCS:.cpp=.o)
 DEPS = ConexaoBancoDeDados.hpp RepositorioUsuario.hpp UsuarioCliente.hpp Hotel.hpp RepositorioHotel.hpp Quarto.hpp FormaDePagamento.hpp FormaDePagamentoUtil.hpp Reserva.hpp RepositorioReserva.hpp RepositorioQuarto.hpp ServicoDeHospedagem.hpp MenuUsuario.hpp EntradaUtil.hpp
 
 # Arquivos-fonte para os testes
-TEST_SRCS = Tests.cpp ConexaoBancoDeDados.cpp RepositorioUsuario.cpp UsuarioCliente.cpp Hotel.cpp  
+TEST_DIR = test
+TEST_SRCS = $(wildcard $(TEST_DIR)/*.cpp) ConexaoBancoDeDados.cpp RepositorioUsuario.cpp UsuarioCliente.cpp Hotel.cpp EntradaUtil.cpp FormaDePagamentoUtil.cpp Reserva.cpp Quarto.cpp
 TEST_OBJS = $(TEST_SRCS:.cpp=.o)
 
 # Nome do executável de teste
