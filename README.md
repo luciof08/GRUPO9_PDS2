@@ -20,28 +20,22 @@
 
 # Instruções de compilação e execução
 
-## Para limpar os arquivos objetos e executável
+## Para compilar a aplicação e os testes
 
 ```
-make clean
-```
-
-## Para gerar o executável
-
-```
-make
+make build
 ```
 
 ## Para executar os testes
 
 ```
-make tests
+make test
 ```
 
 ## Para executar a aplicação
 
 ```
-./reserva
+make run
 ```
 
 ## Para gerar a documentação
