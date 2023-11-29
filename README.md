@@ -1,6 +1,9 @@
-# Funcionalidades
+# Apresentação
 
-**Usuário cliente**
+Sistema desenvolvido para realizar reserva em hospedagem.
+
+
+## Funcionalidades
 
 1. O usuário se cadastra (caso ainda não tenha cadastro)
 2. O usuário realiza login
@@ -17,6 +20,14 @@
 7. Após a seleção das datas, o sistema deve informar o preço final
 8. O sistema exibe as formas de pagamento disponíveis para o hotel
 9. O usuário informa a forma de pagamento e confirma a reserva 
+
+# Dependências para execução do projeto
+
+- framework doctest para testes de unidade (https://github.com/doctest/doctest)
+- ferramenta Doxygen para documentação (http://www.doxygen.org/)
+- banco de dados postgres para armazenamento dos dados
+   - como instalar a lib para o banco de dados postgres para Ubuntu (linux): [https://howtoinstall.co/package/libpqxx-dev#google_vignette](https://howtoinstall.co/package/libpqxx-dev#google_vignette)
+
 
 # Instruções de compilação e execução
 
@@ -43,12 +54,6 @@ make run
 ```
 doxygen Doxyfile
 ```
-
-# Banco de dados
-
-## Como instalar a lib para o banco de dados postgres para Ubuntu (linux)
-
-[https://howtoinstall.co/package/libpqxx-dev#google_vignette](https://howtoinstall.co/package/libpqxx-dev#google_vignette)
 
 ## Criar as tabelas da aplicação
 
