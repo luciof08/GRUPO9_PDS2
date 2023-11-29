@@ -15,6 +15,7 @@ private:
     std::unique_ptr<pqxx::connection> connection;
 public:
 
+    /// @brief Construtor da classe.
     ConexaoBancoDeDados();
 
     /// @brief Obtém o nome do banco de dados.
@@ -30,6 +31,8 @@ public:
     /// @return Host do banco de dados
     std::string getHost() const;
 
+    /// @brief Obtém uma referência para uma conexão estabelecida.
+    /// @return pqxx::connection& da conexão estabelecida.
     pqxx::connection& getConnection();
 };
 

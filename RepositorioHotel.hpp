@@ -10,9 +10,12 @@
 class RepositorioHotel {
 
 private:
+
     std::unique_ptr<ConexaoBancoDeDados> conexao;
 
 public:
+
+    /// @brief Construtor padrão da classe
     RepositorioHotel();
 
     /// @brief Consulta os hotéis do banco de dados.

@@ -14,6 +14,7 @@ private:
 
 public:
 
+    /// @brief Construtor padrão
     RepositorioUsuario();
 
     /// @brief Cadastra um usuário no banco de dados.

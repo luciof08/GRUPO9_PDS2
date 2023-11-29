@@ -21,6 +21,7 @@ public:
     }
 };
 
+/// @brief Classe que representa uma exceção de caso se tente cadastrar um usuário com dados de outro usuário já cadastrado.
 class UsuarioJaCadastradoException : public std::exception {
 public:
     virtual const char* what() const throw() {
@@ -39,28 +40,33 @@ private:
     std::string senha;
 
     /// @brief  Valida o cpf do usuário
-    /// @param cpf 
+    /// @param cpf no formato (\d{3}\.\d{3}\.\d{3}-\d{2})
     void validarCPF(const std::string &cpf);
     /// @brief Valida o email do usuário
-    /// @param email 
+    /// @param email no formato 
     void validarEmail(const std::string &email);
 
 public:
 
+    /// @brief Construtor com id usado para recuperar a entidade da base dados.
+    /// @param id Identificador do usuário
+    /// @param nome Nome do usuário
+    /// @param email Email do usuário
+    /// @param cpf CPF do usuário
+    /// @param senha Senha do usuário
     UsuarioCliente(const int id, const std::string &nome, const std::string &email, const std::string &cpf, const std::string &senha);
 
     /// @brief Construtor para preencher os dados do usuário sem o id.
-    /// @param nome 
-    /// @param email 
-    /// @param cpf 
-    /// @param senha 
+    /// @param nome Nome do usuário
+    /// @param email Email do usuário
+    /// @param cpf CPF do usuário
+    /// @param senha Senha do usuário 
     UsuarioCliente(const std::string &nome, const std::string &email, const std::string &cpf, const std::string &senha);
     
     /// @brief Construtor apenas para a realização do login, onde é necessário apenas email e senha.
-    /// @param email 
-    /// @param senha 
+    /// @param email Email do usuário 
+    /// @param senha Senha do usuário 
     UsuarioCliente(const std::string &email, const std::string &senha);
-
 
     /// @brief Define o id do usuário
     /// @param id 
@@ -78,16 +84,28 @@ public:
     /// @param senha 
     void setSenha(const std::string &senha);
 
+    /// @brief Recupera o Id
+    /// @return ID do usuário
     int getId() const;
+    /// @brief Recupera o nome
+    /// @return Nome do usuário
     std::string getNome() const;
+    /// @brief Recupera o email
+    /// @return Email do usuário
     std::string getEmail() const;
+    /// @brief Recupera o CPF
+    /// @return CPF do usuário
     std::string getCPF() const;
+    /// @brief Recupera o senha
+    /// @return Senha do usuário
     std::string getSenha() const;
 
     /// @brief Realiza o login do usuário no sistema.
-    /// @return Retorna um ponteiro para UsuarioCliente logado ou null.
+    /// @details Verifica as credenciais e retorna um ponteiro para um objeto UsuarioCliente logado.
+    /// @return Retorna um ponteiro para UsuarioCliente logado ou null se o login falhar.
     std::unique_ptr<UsuarioCliente> fazer_login();
     /// @brief Cadastra o usuário no sistema.
+    /// @details Salva o usuário no sistema após a validação dos dados.
     void cadastrar();
 };
 
