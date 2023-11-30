@@ -31,6 +31,11 @@ Sistema desenvolvido para realizar reserva em hospedagem.
 
 # Instruções de compilação e execução
 
+## Para iniciar o banco de dados
+
+Deve-se instalar um banco de dados postgres e executar os scripts do arquivo `script.sql`, para criar
+as tabelas e inicializar alguns dados.
+
 ## Para compilar a aplicação e os testes
 
 ```
@@ -54,7 +59,3 @@ make run
 ```
 doxygen Doxyfile
 ```
-
-## Criar as tabelas da aplicação
-
-Executar o arquivo `script.sql`.
