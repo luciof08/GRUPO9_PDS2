@@ -13,11 +13,12 @@
 #include "../include/EntradaUtil.hpp"
  
 int main() {
-    
+
+    MenuUsuario::mostrar_titulo_sistema();
+
     ServicoDeHospedagem servico;
 
     do {
-        MenuUsuario::mostrar_titulo_sistema();
         MenuUsuario::mostrar_menu_inicial();
         MenuUsuario::mostrar_opcao_encerrar();
         std::string opcao_escolhida_inicial = MenuUsuario::escolher_opcao();

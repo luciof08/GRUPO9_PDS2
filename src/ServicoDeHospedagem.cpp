@@ -43,12 +43,12 @@ void ServicoDeHospedagem::listarHoteis() {
     RepositorioHotel repositorioHotel;
     std::vector<Hotel> hoteis = repositorioHotel.listarHoteis();
     std::cout << "\nHoteis disponíveis: " << std::endl;
-    std::cout << std::setw(5) << std::left << "ID"
-              << std::setw(30) << std::left << "Hotel" << std::endl;
+    std::cout << std::setfill('-') << std::setw(42) << "" << std::endl;
+    std::cout << std::setw(5) << std::left << "ID" << " | " << std::setw(20) << "Hotel" << std::endl;
+    std::cout << std::setfill('-') << std::setw(42) << "" << std::endl;
 
     for(Hotel hotel : hoteis) {
-        std::cout << std::setw(5) << std::left << hotel.getId()
-            << std::setw(30) << std::left << hotel.getNome() << std::endl;
+        std::cout << std::setw(5) << std::left << hotel.getId() << " | " << std::setw(20) << hotel.getNome() << std::endl;
     }
     std::cout << std::endl;
 }
@@ -58,10 +58,12 @@ void ServicoDeHospedagem::listarReservas(const std::unique_ptr<UsuarioCliente>& 
     std::vector<Reserva> reservas = repositorioReserva.listarReservas(usuarioLogado);
 
     std::cout << "\nReservas do Usuário: " << std::endl;
-    std::cout << std::setw(30) << std::left << "Hotel"
-              << std::setw(20) << std::left << "Número do quarto"
-              << std::setw(15) << std::left << "Início"
-              << std::setw(15) << std::left << "Fim" << std::endl;
+    std::cout << std::setfill('-') << std::setw(42) << "" << std::endl;
+    std::cout << std::setw(30) << std::left << "Hotel" << " | " 
+              << std::setw(20) << "Número do quarto" << " | " 
+              << std::setw(15) << "Início" << " | " 
+              << std::setw(15) << "Fim" << std::endl;
+    std::cout << std::setfill('-') << std::setw(42) << "" << std::endl;
 
     for(Reserva reserva : reservas) {
          // Convertendo para std::time_t
@@ -80,10 +82,10 @@ void ServicoDeHospedagem::listarReservas(const std::unique_ptr<UsuarioCliente>& 
         std::string nomeHotel = reserva.getQuarto().getHotel().getNome();
         int numeroQuarto = reserva.getQuarto().getNumero();
 
-        std::cout << std::setw(30) << std::left << nomeHotel
-                  << std::setw(20) << std::left << numeroQuarto
-                  << std::setw(15) << std::left << dataInicio_ss.str()
-                  << std::setw(15) << std::left << dataFim_ss.str() << std::endl;
+        std::cout << std::left << std::setw(30) << nomeHotel  << " | "  
+                  << std::setw(20) << numeroQuarto  << " | "  
+                  << std::setw(15) << dataInicio_ss.str()  << " | "
+                  << std::setw(15) << dataFim_ss.str() << std::endl;
     }
     std::cout << std::endl;
 }
@@ -97,14 +99,16 @@ void ServicoDeHospedagem::listarQuartos(std::string idHotel) {
     }
 
     std::cout << "\nQuartos do hotel:" << std::endl;
-    std::cout << std::setw(5) << std::left << "ID"
-              << std::setw(20) << std::left << "Número do quarto"
-              << std::setw(40) << std::left << "Localização" << std::endl;
-            
+    std::cout << std::setfill('-') << std::setw(42) << "" << std::endl;
+    std::cout << std::setw(5) << std::left << "ID" << " | " 
+              << std::setw(20) << "Número do quarto" << " | " 
+              << std::setw(40) << "Localização" << std::endl;
+    std::cout << std::setfill('-') << std::setw(42) << "" << std::endl;
+
     for (Quarto quarto : quartos) {
-        std::cout << std::setw(5) << std::left << quarto.getId()
-            << std::setw(20) << std::left << quarto.getNumero()
-            << std::setw(40) << std::left << quarto.getLocalizacao() << std::endl;
+        std::cout << std::setw(5) << std::left << quarto.getId() << " | " 
+            << std::setw(20) << quarto.getNumero() << " | "
+            << std::setw(40) << quarto.getLocalizacao() << std::endl;
     }
     std::cout << std::endl;
 }
