@@ -13,6 +13,10 @@ ConexaoBancoDeDados::ConexaoBancoDeDados() {
         throw std::runtime_error("Falha ao conectar ao banco de dados.");
     }
 }
+
+ConexaoBancoDeDados::~ConexaoBancoDeDados() {
+    connection->disconnect();
+}
     
 std::string ConexaoBancoDeDados::getDBName() const {
     return dbname;

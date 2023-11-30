@@ -18,6 +18,9 @@ public:
     /// @brief Construtor da classe.
     ConexaoBancoDeDados();
 
+    /// @brief Destrutor para encerrar a conexão com o banco de dados.
+    ~ConexaoBancoDeDados();
+
     /// @brief Obtém o nome do banco de dados.
     /// @return Nome do banco de dados
     std::string getDBName() const;
