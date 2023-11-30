@@ -1,3 +1,6 @@
+#ifndef FORMADEPAGAMENTOUTIL_HPP
+#define FORMADEPAGAMENTOUTIL_HPP
+
 #include <string>
 #include "FormaDePagamento.hpp"
 
@@ -11,3 +14,5 @@ public:
     static std::string toString(FormaDePagamento forma);
 
 };
+
+#endif // FORMADEPAGAMENTOUTIL_HPP
