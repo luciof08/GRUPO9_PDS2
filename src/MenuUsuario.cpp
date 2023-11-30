@@ -1,6 +1,14 @@
 #include "../include/MenuUsuario.hpp"
 #include "../include/EntradaUtil.hpp"
 
+void MenuUsuario::mostrar_titulo_sistema() {
+    std::string title = "SISTEMA DE RESERVA DE HOSPEDAGEM";
+    int width = title.length() + 4; // Considerando duas barras para cada lado do título
+    std::cout << std::setw(width) << std::setfill('*') << "" << std::endl;
+    std::cout << "* " << std::setw(width - 3) << std::left << title << " *" << std::endl;
+    std::cout << std::setw(width) << std::setfill('*') << "" << std::endl;
+}
+
 void MenuUsuario::mostrar_opcao_encerrar() {
     std::cout << "0 - Encerrar" << std::endl;
 }

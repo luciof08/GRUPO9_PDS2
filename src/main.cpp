@@ -17,6 +17,7 @@ int main() {
     ServicoDeHospedagem servico;
 
     do {
+        MenuUsuario::mostrar_titulo_sistema();
         MenuUsuario::mostrar_menu_inicial();
         MenuUsuario::mostrar_opcao_encerrar();
         std::string opcao_escolhida_inicial = MenuUsuario::escolher_opcao();

@@ -3,10 +3,13 @@
 
 #include <iostream>
 #include <string>
+#include <iomanip>
 
 /// @brief Classe para exibição de menu de usuário.
 class MenuUsuario {
 public:
+    /// @brief Exibe um título para o sistema
+    static void mostrar_titulo_sistema();
     /// @brief Exibe a opção encerrar menu.
     static void mostrar_opcao_encerrar();
     /// @brief  Exibe o menu inicial quando o usuário inicia o programa.
