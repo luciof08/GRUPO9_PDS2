@@ -49,3 +49,6 @@
 # Doxygen
 **/html/
 **/latex/
+
+# Build
+**/build/
