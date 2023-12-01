@@ -8,15 +8,17 @@ LDFLAGS = -lpqxx -lpq
 SRCDIR = src
 INCDIR = include
 BUILDDIR = build
+BUILD_APP_DIR = $(BUILDDIR)/app
+BUILD_TEST_DIR = $(BUILDDIR)/test
 
 # Arquivos da aplicação
 SRCS_APP = $(wildcard $(SRCDIR)/*.cpp)
-OBJS_APP = $(patsubst $(SRCDIR)/%.cpp,$(BUILDDIR)/%.o,$(SRCS_APP))
+OBJS_APP = $(patsubst $(SRCDIR)/%.cpp,$(BUILD_APP_DIR)/%.o,$(SRCS_APP))
 
 # Arquivos de teste do Doctest
 TESTDIR = test
 SRCS_TEST = $(wildcard $(TESTDIR)/*.cpp)
-OBJS_TEST = $(patsubst $(TESTDIR)/%.cpp,$(BUILDDIR)/%.o,$(SRCS_TEST))
+OBJS_TEST = $(patsubst $(TESTDIR)/%.cpp,$(BUILD_TEST_DIR)/%.o,$(SRCS_TEST))
 
 # Nome dos executáveis
 EXEC = programa.out
@@ -27,27 +29,30 @@ TEST_EXEC = testes.out
 # Regra padrão, compila tudo
 all: build
 
-# Regra para criar a pasta de compilação
-$(BUILDDIR):
-	mkdir -p $(BUILDDIR)
+# Regra para criar os diretórios de compilação
+$(BUILD_APP_DIR):
+	mkdir -p $(BUILD_APP_DIR)
+
+$(BUILD_TEST_DIR):
+	mkdir -p $(BUILD_TEST_DIR)
 
 # Regra para compilar os arquivos da aplicação
-$(BUILDDIR)/%.o: $(SRCDIR)/%.cpp | $(BUILDDIR)
+$(BUILD_APP_DIR)/%.o: $(SRCDIR)/%.cpp | $(BUILD_APP_DIR)
 	$(CXX) $(CXXFLAGS) -I$(INCDIR) -c -o $@ $<
 
 # Regra para compilar os arquivos de teste
-$(BUILDDIR)/%.o: $(TESTDIR)/%.cpp | $(BUILDDIR)
+$(BUILD_TEST_DIR)/%.o: $(TESTDIR)/%.cpp | $(BUILD_TEST_DIR)
 	$(CXX) $(CXXFLAGS) -I$(INCDIR) -c -o $@ $<
 
 # Regra para compilar a aplicação e os testes
-build: $(BUILDDIR) $(EXEC) $(TEST_EXEC)
+build: $(BUILD_APP_DIR) $(BUILD_TEST_DIR) $(EXEC) $(TEST_EXEC)
 
 # Linkagem dos objetos para criar o executável da aplicação
 $(EXEC): $(OBJS_APP)
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 # Linkagem dos objetos para criar o executável dos testes
-$(TEST_EXEC): $(OBJS_TEST) $(filter-out $(BUILDDIR)/main.o,$(OBJS_APP))
+$(TEST_EXEC): $(OBJS_TEST) $(filter-out $(BUILD_APP_DIR)/main.o,$(OBJS_APP))
 	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
 # Regra para executar os testes
