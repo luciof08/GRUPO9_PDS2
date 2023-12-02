@@ -32,3 +32,16 @@ void EntradaUtil::tornarCaixaAlta(std::string& str) {
         c = std::toupper(c);
     }
 }
+
+std::string EntradaUtil::lerSenha() {
+    struct termios original_termios;
+    termios tty;
+    tcgetattr(STDIN_FILENO, &original_termios);
+    tty = original_termios;
+    tty.c_lflag &= ~ECHO;
+    tcsetattr(STDIN_FILENO, TCSANOW, &tty);
+    std::string senha;
+    std::getline(std::cin, senha);
+    tcsetattr(STDIN_FILENO, TCSANOW, &original_termios);
+    return senha;
+}
