@@ -6,8 +6,7 @@
 // O teste de cadastro de usuário só irá passar se o usuário não existir inicialmente.
 TEST_CASE("Testes de cadastro de usuário") {
     
-    // Limpeza do estado do sistema (se necessário) antes de cada teste
-    // Aqui você pode redefinir ou limpar o banco de dados, se aplicável
+    // Limpeza do estado do sistema (se necessário) antes de cada teste.
     
     SUBCASE("Cadastro de usuário não existente deve ser bem-sucedido") {
         UsuarioCliente usuario1("Nome", "email@teste.com", "123.456.789-10", "senha");
@@ -22,9 +21,8 @@ TEST_CASE("Testes de cadastro de usuário") {
 
 TEST_CASE("Testes de login de usuário") {
     
-    // Limpeza do estado do sistema (se necessário) antes de cada teste
-    // Aqui você pode redefinir ou limpar o banco de dados, se aplicável
-
+    // Limpeza do estado do sistema (se necessário) antes de cada teste.
+    
     SUBCASE("Login com credenciais válidas deve ser bem-sucedido") {
         UsuarioCliente usuario("email@teste.com", "senha");
         auto usuario_logado = usuario.fazer_login();
