@@ -51,9 +51,17 @@ void ServicoDeHospedagem::listarHoteis() {
     std::cout << std::setfill('-') << std::setw(42) << "" << std::endl;
 
     std::cout << std::setfill(' ') << std::setw(42) << "" << std::endl;
+
+    // Salva o locale atual
+    const std::locale oldLocale = std::cout.imbue(std::locale("pt_BR.UTF-8"));
+
     for(Hotel hotel : hoteis) {
-        std::cout << std::setw(5) << std::left << hotel.getId() << " | " << std::setw(20) << hotel.getNome() << " | " << std::setw(15) << hotel.getValorDiaria() << std::endl;
+        std::cout << std::setw(5) << std::left << hotel.getId() << " | " << std::setw(20) << hotel.getNome() << " | " << std::setw(15) << std::fixed << std::setprecision(2) << hotel.getValorDiaria() << std::endl;
     }
+
+    // Restaura o locale anterior
+    std::cout.imbue(oldLocale);
+
     std::cout << std::endl;
 }
 
