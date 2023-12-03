@@ -12,6 +12,14 @@ public:
     }
 };
 
+/// @brief Classe que representa uma exceção da validação do valor da diária.
+class ValorDaDiariaInvalidaException : public std::exception {
+public:
+    virtual const char* what() const throw() {
+        return "Valor da diária inválido.";
+    }
+};
+
 /// @brief Classe que representa os hotéis.
 class Hotel {
 private:
@@ -20,10 +28,13 @@ private:
     std::string telefone_contato;
     std::string cnpj;
     std::string endereco;
+    double valorDiaria;
 
     /// @brief  Valida o formato do cnpj informado
-    /// @param cnpj no formato (\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}) 
     void validarCNPJ();
+
+    /// @brief Valida se o valor da diária é maior ou igual a zero
+    void validarValorDiaria();
 
 public:
 
@@ -43,7 +54,7 @@ public:
     /// @param telefone_contato Telefone de contato do hotel
     /// @param cnpj Cnpj do hotel
     /// @param endereco Endereço do hotel 
-    Hotel(int id, const std::string &nome, const std::string &telefone_contato, const std::string &cnpj, const std::string &endereco);
+    Hotel(int id, const std::string &nome, const std::string &telefone_contato, const std::string &cnpj, const std::string &endereco, const double valorDiaria);
     
     /// @brief Define o nome do hotel
     /// @param nome Nome do hotel
@@ -76,6 +87,9 @@ public:
     /// @brief Recupera o Endereço do hotel
     /// @return o Endereço do hotel
     std::string getEndereco() const;
+    /// @brief Recupera o valor da diária
+    /// @return valor da diária do hotel
+    double getValorDiaria() const;
 
 };
 

@@ -8,8 +8,8 @@ Hotel::Hotel(const std::string &nome, const std::string &telefone_contato, const
     validarCNPJ();
 }
 
-Hotel::Hotel(int id, const std::string &nome, const std::string &telefone_contato, const std::string &cnpj, const std::string &endereco)
-: id(id), nome(nome), telefone_contato(telefone_contato), cnpj(cnpj), endereco(endereco) {
+Hotel::Hotel(int id, const std::string &nome, const std::string &telefone_contato, const std::string &cnpj, const std::string &endereco, const double valorDiaria)
+: id(id), nome(nome), telefone_contato(telefone_contato), cnpj(cnpj), endereco(endereco), valorDiaria(valorDiaria) {
 
 }
 
@@ -18,6 +18,12 @@ void Hotel::validarCNPJ() {
 
     if (!std::regex_match(cnpj, regex_cnpj)) {
         throw CNPJInvalidoException();
+    }
+}
+
+void Hotel::validarValorDiaria() {
+    if (valorDiaria < 0) {
+        throw ValorDaDiariaInvalidaException();
     }
 }
 
@@ -56,4 +62,8 @@ std::string Hotel::getCnpj() const {
 
 std::string Hotel::getEndereco() const {
     return endereco;
+}
+
+double Hotel::getValorDiaria() const {
+    return valorDiaria;
 }

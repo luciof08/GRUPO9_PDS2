@@ -47,12 +47,12 @@ void ServicoDeHospedagem::listarHoteis() {
     std::cout << "\nHoteis disponíveis: " << std::endl;
     std::cout << std::setfill('-') << std::setw(42) << "" << std::endl;
     std::cout << std::setfill(' ') << std::setw(42) << "" << std::endl;
-    std::cout << std::setw(5) << std::left << "ID" << " | " << std::setw(20) << "Hotel" << std::endl;
+    std::cout << std::setw(5) << std::left << "ID" << " | " << std::setw(20) << "Hotel" << " | " << std::setw(15) << "Diária" <<  std::endl;
     std::cout << std::setfill('-') << std::setw(42) << "" << std::endl;
 
     std::cout << std::setfill(' ') << std::setw(42) << "" << std::endl;
     for(Hotel hotel : hoteis) {
-        std::cout << std::setw(5) << std::left << hotel.getId() << " | " << std::setw(20) << hotel.getNome() << std::endl;
+        std::cout << std::setw(5) << std::left << hotel.getId() << " | " << std::setw(20) << hotel.getNome() << " | " << std::setw(15) << hotel.getValorDiaria() << std::endl;
     }
     std::cout << std::endl;
 }

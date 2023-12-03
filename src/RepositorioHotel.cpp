@@ -10,7 +10,7 @@ std::vector<Hotel> RepositorioHotel::listarHoteis() {
 
     try {
             pqxx::work txn(conexao->getConnection());
-            pqxx::result result = txn.exec("SELECT id, nome, telefone_contato, cnpj, endereco FROM hotel");
+            pqxx::result result = txn.exec("SELECT id, nome, telefone_contato, cnpj, endereco, valor_diaria FROM hotel");
 
             // Itere pelos resultados e crie objetos Hotel
             for (const auto &row : result) {
@@ -19,9 +19,10 @@ std::vector<Hotel> RepositorioHotel::listarHoteis() {
                 std::string telefone_contato = row["telefone_contato"].as<std::string>();
                 std::string cnpj = row["cnpj"].as<std::string>();
                 std::string endereco = row["endereco"].as<std::string>();
+                double valorDiaria = row["valor_diaria"].as<double>();
 
                 // Crie objetos Hotel e adicione à lista
-                Hotel hotel(id, nome, telefone_contato, cnpj, endereco);
+                Hotel hotel(id, nome, telefone_contato, cnpj, endereco, valorDiaria);
                 hoteis.push_back(hotel);
             }
 
