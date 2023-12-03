@@ -25,12 +25,17 @@ public:
     /// @param hotel hotel ao qual o quarto pertence
     Quarto(int id, int numero, Hotel& hotel);
 
-    /// @brief /// @brief Construtor da classe completo quando usado para consulta a entidade.
+    /// @brief Construtor da classe completo quando usado para consulta a entidade.
     /// @param id Identificador do quarto
     /// @param numero Número do quarto
     /// @param localizacao Localização do quarto dentro do hotel
     /// @param hotel hotel ao qual o quarto pertence
     Quarto(int id, int numero, std::string localizacao, const Hotel& hotel);
+
+    /// @brief Construtor para consulta de hotel por quarto
+    /// @param id Identificador do quarto
+    /// @param hotel hotel ao qual o quarto pertence
+    Quarto(int id, Hotel& hotel);
 
     /// @brief Recupera o ID do quarto. 
     /// @return int representando o id
@@ -44,6 +49,9 @@ public:
     /// @brief Recupera o hotel ao qual o quarto está associado
     /// @return o hotel do quarto
     Hotel getHotel() const;
+    /// @brief Obtém a diária do hotel do quarto
+    /// @return o valor da diária do hotel
+    double getDiariaDoHotel() const;
 
 };
 

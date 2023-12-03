@@ -6,6 +6,8 @@ Quarto::Quarto(int id, int numero, Hotel& hotel) : id(id), numero(numero), hotel
 
 Quarto::Quarto(int id, int numero, std::string localizacao,const Hotel& hotel) : id(id), numero(numero),localizacao(localizacao), hotel(hotel) {}
 
+Quarto::Quarto(int id, Hotel& hotel) : id(id), hotel(hotel) {}
+
 int Quarto::getId() const {
     return id;
 }
@@ -20,4 +22,8 @@ std::string Quarto::getLocalizacao() const {
 
 Hotel Quarto::getHotel() const {
     return hotel;
+}
+
+double Quarto::getDiariaDoHotel() const {
+    return hotel.getValorDiaria();
 }

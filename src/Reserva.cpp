@@ -1,8 +1,6 @@
 #include "../include/Reserva.hpp"
 #include <iostream>
 
-const double Reserva::PRECO_DIARIA = 100.0;
-
 // Construtor
 Reserva::Reserva(int id, const Quarto& quarto, const std::chrono::time_point<std::chrono::system_clock>& dataInicio,
         const std::chrono::time_point<std::chrono::system_clock>& dataFim, const UsuarioCliente& usuario)
@@ -45,9 +43,14 @@ UsuarioCliente Reserva::getUsuario() const {
 double Reserva::calcularPrecoFinal() const {
     std::chrono::duration<double> duracao = dataFim - dataInicio;
     int numDias = static_cast<int>(std::chrono::duration_cast<std::chrono::hours>(duracao).count() / 24); 
-    std::cout << "Valor da diária: " << PRECO_DIARIA << std::endl;
+
+    const std::locale oldLocale = std::cout.imbue(std::locale("pt_BR.UTF-8"));
+    std::cout << "Valor da diária do hotel " << quarto.getHotel().getNome() << ": R$ " << std::fixed << std::setprecision(2) << quarto.getDiariaDoHotel() << std::endl;
+    // Restaura o locale anterior
+    std::cout.imbue(oldLocale);
+
     std::cout << "Dias calculados: " << numDias << std::endl;
-    return PRECO_DIARIA * numDias; 
+    return quarto.getDiariaDoHotel() * numDias; 
 }
 
 void Reserva::setFormaDePagamento(const FormaDePagamento& formaDePagamento) {
@@ -59,7 +62,7 @@ FormaDePagamento Reserva::getFormaDePagamento() const {
 }
 
 void Reserva::validarDataInicioMaiorOuIgualQueODiaAtual() {
- // Obtendo a data atual
+    // Obtendo a data atual
     auto agora = std::chrono::system_clock::now();
     std::time_t tempoAtual = std::chrono::system_clock::to_time_t(agora);
     std::tm dataAtual = *std::localtime(&tempoAtual);

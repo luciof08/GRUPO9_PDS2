@@ -230,7 +230,9 @@ void ServicoDeHospedagem::reservarQuarto(const std::unique_ptr<UsuarioCliente>& 
     size_t pos; 
     int id_quarto = std::stoi(id_quarto_escolhido, &pos);
 
-    Reserva reserva(Quarto(id_quarto), dataInicio, dataFinal, *usuarioLogado);
+    Hotel hotel = repositorioQuarto.buscarHotel(id_quarto_escolhido);
+
+    Reserva reserva(Quarto(id_quarto, hotel), dataInicio, dataFinal, *usuarioLogado);
 
     if (repositorioReserva.estaDisponivel(reserva)) {
         double precoFinal = reserva.calcularPrecoFinal();

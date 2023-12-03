@@ -26,6 +26,10 @@ public:
     /// @param idHotel ID do Hotel do Quarto
     /// @return lista com os quartos do hotel 
     std::vector<Quarto> listarQuartos(std::string idHotel);
+    /// @brief Busca o objeto hotel relacionado ao quarto
+    /// @param idQuarto id do quarto
+    /// @return um objeto do tipo Hotel
+    Hotel buscarHotel(const std::string& idQuarto); 
 };
 
 #endif // REPOSITORIOQUARTO_HPP
